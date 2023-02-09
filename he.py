@@ -1,7 +1,7 @@
 import pygame
 import time
 import random
- 
+fin is unreal
 pygame.init()
  
 display_width = 800
