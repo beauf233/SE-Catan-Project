@@ -7,9 +7,13 @@ screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption('The Settlers')
 screen.fill(background_colour)
 
+#transparent = (0, 0, 0, 0)
 
 
-carImg = pygame.image.load('blackHexagon.png')
+carImg = pygame.image.load('hexagonCurve.png')
+
+carImg = pygame.transform.scale(carImg, (90,90))
+
 
 def car(x,y):
     screen.blit(carImg, (x,y))
@@ -19,6 +23,8 @@ y = (height * 0.10)
 
 
 car(x,y)
+
+#carImg.image.fill(transparent)
 
 #Opens window
 pygame.display.update()

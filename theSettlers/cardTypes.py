@@ -14,8 +14,6 @@ class ResCard(Enum):
 class DevCard(Enum):
 
     # the developement cards
-    Road = 0
     VictoryPoint = 1
     Knight = 2
-    Monopoly = 3
-    YearOfPlenty = 4
+    ProgressCards = 4

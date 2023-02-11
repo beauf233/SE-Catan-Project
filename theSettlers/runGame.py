@@ -1,4 +1,3 @@
-#import pygame
 from theSettlers.player import Player
 
 class GameRunner:
@@ -6,4 +5,7 @@ class GameRunner:
 
         self.players = []
         for i in range(numPlayers):
-            self.players.append(Player(game=self, num=i))
+            self.players.append(Player(game=self, num=i))    
+        print('fin')
+        
+    
