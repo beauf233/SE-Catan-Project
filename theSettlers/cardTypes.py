@@ -16,4 +16,4 @@ class DevCard(Enum):
     # the developement cards
     VictoryPoint = 1
     Knight = 2
-    ProgressCards = 4
+    ProgressCards = 3
