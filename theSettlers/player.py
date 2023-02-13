@@ -1,4 +1,4 @@
-from theSettlers.cardTypes import ResCard,DevCard
+from cardTypes import ResCard,DevCard
 
 # The Class for the player
 class Player:
@@ -53,6 +53,7 @@ class Player:
     # Adds the development card to the players development card deck
     def addDevCard(self, devCard):
         self.developCards.append(devCard)
+        print("yo")
 
     # Removes a development card from the players deck
     def removeDevelopCard(self, card):
@@ -79,5 +80,9 @@ class Player:
         if not self.has_cards(cards_needed):
             print("not enough of the right cards") ######## FIX #######
             return None
+    
+        
+
+
         
 

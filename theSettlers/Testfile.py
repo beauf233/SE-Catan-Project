@@ -1,4 +1,7 @@
 import pygame
+from cardTypes import DevCard
+import random
+from runGame import GameRunner
 
 #Board view set up
 background_colour = (0,131,185)
@@ -27,7 +30,7 @@ car(x,y)
 #carImg.image.fill(transparent)
 
 #Opens window
-pygame.display.update()
+#pygame.display.update()
 
 
 
@@ -38,3 +41,5 @@ while running:
   for event in pygame.event.get():
     if event.type == pygame.QUIT:
       running = False
+
+game = GameRunner(3)
