@@ -16,14 +16,18 @@ class GameRunner:
     def shuffleDevelopCards():
         developDeck = []
 
+
+        #Numbers of each cards present in the game
         knightCards = 14
         victoryPointCards = 5
         roadBuilding = 2
         yearOfPlenty = 2
         monopoly = 2
 
+        #How many different cards there are
         myNumbers = [0,1,2,3,4]
 
+        #Iterate and randomly select cards until there are no cards remaining
         while knightCards + victoryPointCards + roadBuilding + yearOfPlenty + monopoly != 0:
             
             pick = random.choice(myNumbers)
@@ -55,6 +59,7 @@ class GameRunner:
                     if monopoly == 0:
                         del myNumbers[myNumbers.index(4)]
         return developDeck
+    
 
     def pickUpCard(self, i):
         self.players[i].addDevCard(self.developDeck.pop())
