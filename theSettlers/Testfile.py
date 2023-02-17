@@ -13,24 +13,24 @@ screen.fill(background_colour)
 #transparent = (0, 0, 0, 0)
 
 
-carImg = pygame.image.load('hexagonCurve.png')
+#carImg = pygame.image.load('hexagonCurve.png')
 
-carImg = pygame.transform.scale(carImg, (90,90))
-
-
-def car(x,y):
-    screen.blit(carImg, (x,y))
-
-x =  (width * 0.10)
-y = (height * 0.10)
+#carImg = pygame.transform.scale(carImg, (90,90))
 
 
-car(x,y)
+#def car(x,y):
+#    screen.blit(carImg, (x,y))
+
+#x =  (width * 0.10)
+#y = (height * 0.10)
+
+
+#car(x,y)
 
 #carImg.image.fill(transparent)
 
 #Opens window
-#pygame.display.update()
+pygame.display.update()
 
 
 
