@@ -8,11 +8,12 @@ class GameRunner:
     def __init__(self, numPlayers):
 
         self.players = []
+        hexRelationships =[(1,2,3),(1,2,3)]
         for i in range(numPlayers):
             self.players.append(Player(game=self, num=i)) 
         print('fin')
         self.developDeck = self.shuffleDevelopCards()
-        self.hexagons = self.innitHexagons()        
+        self.hexagons = self.innitHexagons(hexRelationships)
 
     def shuffleDevelopCards():
         developDeck = []
@@ -76,7 +77,7 @@ class GameRunner:
         else:
             self.players[i].pickUpCard(i)
     
-    def innitHexagons():
+    def innitHexagons(hexRelationships):
         hexagons = []
 
         # Number of certain tile type on the board
@@ -96,32 +97,32 @@ class GameRunner:
 
             match pick:
                 case 0:
-                    hexagons.append(HexagonObject(i, hexType.Desert, 4))
+                    hexagons.append(HexagonObject(i, hexType.Desert, hexRelationships[i]))
                     Desert -= 1
                     if Desert == 0:
                         del myNumbers[myNumbers.index(0)]
                 case 1:
-                    hexagons.append(HexagonObject(i, hexType.Mountain, 4))
+                    hexagons.append(HexagonObject(i, hexType.Mountain, hexRelationships[i]))
                     Mountains -= 1
                     if Mountains == 0:                        
                         del myNumbers[myNumbers.index(1)]
                 case 2:
-                    hexagons.append(HexagonObject(i, hexType.Hill, 4))
+                    hexagons.append(HexagonObject(i, hexType.Hill, hexRelationships[i]))
                     Hills -= 1
                     if Hills == 0:                        
                         del myNumbers[myNumbers.index(2)]
                 case 3:
-                    hexagons.append(HexagonObject(i, hexType.Field, 4))
+                    hexagons.append(HexagonObject(i, hexType.Field, hexRelationships[i]))
                     Fields -= 1
                     if Fields == 0:                        
                         del myNumbers[myNumbers.index(3)]
                 case 4:
-                    hexagons.append(HexagonObject(i, hexType.Pasture, 4))
+                    hexagons.append(HexagonObject(i, hexType.Pasture, hexRelationships[i]))
                     Pasture -= 1
                     if Pasture == 0:                        
                         del myNumbers[myNumbers.index(4)]
                 case 5:
-                    hexagons.append(HexagonObject(i, hexType.Forest, 4))
+                    hexagons.append(HexagonObject(i, hexType.Forest, hexRelationships[i]))
                     Forest -= 1
                     if Forest == 0:
                         del myNumbers[myNumbers.index(5)]
