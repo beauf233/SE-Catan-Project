@@ -10,7 +10,6 @@ class GameRunner:
     def __init__(self, numPlayers):
 
         self.players = []
-        self.nodes = []
         hexRelationships =[(1,2,3),(1,2,3)]
         for i in range(numPlayers):
             self.players.append(Player(game=self, num=i)) 
