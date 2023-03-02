@@ -1,7 +1,6 @@
 import pygame
 from cardTypes import DevCard
 import random
-from runGame import GameRunner
 
 #Board view set up
 background_colour = (0,131,185)
@@ -37,6 +36,4 @@ while running:
   for event in pygame.event.get():
     if event.type == pygame.QUIT:
       running = False
-
-game = GameRunner(3)
 

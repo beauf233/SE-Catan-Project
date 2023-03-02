@@ -4,6 +4,6 @@ class NodeObject:
     def __init__(self, number):
         print('fin')
 
-    def give():
+    def give(n):
         print
     

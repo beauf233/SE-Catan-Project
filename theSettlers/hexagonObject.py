@@ -6,5 +6,6 @@ class HexagonObject:
         self.hexagonType = hexagonType
         self.nodeRelationship = relationship
 
-    
+    def giveNodes(self):
+        return self.nodeRelationship
                     
