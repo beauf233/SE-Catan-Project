@@ -1,4 +1,9 @@
+
 class NodeObject:
 
-    def __init__(number):
-        print('fin') 
+    def __init__(self, number):
+        print('fin')
+
+    def give():
+        print
+    

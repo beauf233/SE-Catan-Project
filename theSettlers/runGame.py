@@ -128,3 +128,9 @@ class GameRunner:
                         del myNumbers[myNumbers.index(5)]
             
             return hexagons
+    
+    def rollDice():
+        roll1 = random.randint(1,6)
+        roll2 = random.randint(1,6)
+        combRoll = roll1+roll2
+
