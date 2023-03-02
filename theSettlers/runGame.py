@@ -2,18 +2,25 @@ from player import Player
 from cardTypes import DevCard, ResCard
 from hexValues import hexType
 from hexagonObject import HexagonObject
+from nodeObject import NodeObject
 import random 
 
 class GameRunner:
+
     def __init__(self, numPlayers):
 
         self.players = []
+        self.nodes = []
         hexRelationships =[(1,2,3),(1,2,3)]
         for i in range(numPlayers):
             self.players.append(Player(game=self, num=i)) 
+
+        for i in range(0,53):
+            self.nodes.append(NodeObject(i))
+
         print('fin')
         self.developDeck = self.shuffleDevelopCards()
-        self.hexagons = self.innitHexagons(hexRelationships)
+        self.innitHexagons(hexRelationships)
 
     def shuffleDevelopCards():
         developDeck = []
@@ -77,8 +84,8 @@ class GameRunner:
         else:
             self.players[i].pickUpCard(i)
     
-    def innitHexagons(hexRelationships):
-        hexagons = []
+    def innitHexagons(self, hexRelationships):
+        self.hexagons = []
 
         # Number of certain tile type on the board
         desert = 1
@@ -97,40 +104,42 @@ class GameRunner:
 
             match pick:
                 case 0:
-                    hexagons.append(HexagonObject(i, hexType.Desert, hexRelationships[i]))
+                    self.hexagons.append(HexagonObject(i, hexType.Desert, hexRelationships[i]))
                     Desert -= 1
                     if Desert == 0:
                         del myNumbers[myNumbers.index(0)]
                 case 1:
-                    hexagons.append(HexagonObject(i, hexType.Mountain, hexRelationships[i]))
+                    self.hexagons.append(HexagonObject(i, hexType.Mountain, hexRelationships[i]))
                     Mountains -= 1
                     if Mountains == 0:                        
                         del myNumbers[myNumbers.index(1)]
                 case 2:
-                    hexagons.append(HexagonObject(i, hexType.Hill, hexRelationships[i]))
+                    self.hexagons.append(HexagonObject(i, hexType.Hill, hexRelationships[i]))
                     Hills -= 1
                     if Hills == 0:                        
                         del myNumbers[myNumbers.index(2)]
                 case 3:
-                    hexagons.append(HexagonObject(i, hexType.Field, hexRelationships[i]))
+                    self.hexagons.append(HexagonObject(i, hexType.Field, hexRelationships[i]))
                     Fields -= 1
                     if Fields == 0:                        
                         del myNumbers[myNumbers.index(3)]
                 case 4:
-                    hexagons.append(HexagonObject(i, hexType.Pasture, hexRelationships[i]))
+                    self.hexagons.append(HexagonObject(i, hexType.Pasture, hexRelationships[i]))
                     Pasture -= 1
                     if Pasture == 0:                        
                         del myNumbers[myNumbers.index(4)]
                 case 5:
-                    hexagons.append(HexagonObject(i, hexType.Forest, hexRelationships[i]))
+                    self.hexagons.append(HexagonObject(i, hexType.Forest, hexRelationships[i]))
                     Forest -= 1
                     if Forest == 0:
                         del myNumbers[myNumbers.index(5)]
             
-            return hexagons
+            #return hexagons
     
-    def rollDice():
+    def rollDice(self):
         roll1 = random.randint(1,6)
         roll2 = random.randint(1,6)
         combRoll = roll1+roll2
 
+        for i in range(0,5):
+            self.nodes[ self.hexagons[4].giveNodes(5) ]
