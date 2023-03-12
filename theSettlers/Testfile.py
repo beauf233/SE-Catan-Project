@@ -1,6 +1,10 @@
 import pygame
 from cardTypes import DevCard
 import random
+import unittest
+import player
+import cardTypes
+import runGame
 
 #Board view set up
 background_colour = (0,131,185)
@@ -37,3 +41,12 @@ while running:
     if event.type == pygame.QUIT:
       running = False
 
+
+class TestAddCards(unittest.TestCase):
+    #testGame = runGame.GameRunner()
+    #testPlayer = player.Player(testGame, 2)
+    def runTest(self):
+        testGame = runGame.GameRunner()
+        testPlayer = player.Player(testGame, 2)
+        Card1 = cardTypes.ResCard.Brick
+        testPlayer.addCards(Card1)
