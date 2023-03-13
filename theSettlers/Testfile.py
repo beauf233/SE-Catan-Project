@@ -15,18 +15,18 @@ screen.fill(background_colour)
 
 #transparent = (0, 0, 0, 0)
 
-carImg = pygame.image.load('hexagonCurve.png')
+#carImg = pygame.image.load('hexagonCurve.png')
 
-carImg = pygame.transform.scale(carImg, (90,90))
+#carImg = pygame.transform.scale(carImg, (90,90))
 
-def car(x,y):
-    screen.blit(carImg, (x,y))
+#def car(x,y):
+#    screen.blit(carImg, (x,y))
 
-x =  (width * 0.10)
-y = (height * 0.10)
+#x =  (width * 0.10)
+#y = (height * 0.10)
 
 
-car(x,y)
+#car(x,y)
 
 #carImg.image.fill(transparent)
 
@@ -35,7 +35,7 @@ car(x,y)
 
 
 #Keeps screen running and open
-running = True
+running = False
 while running:
   for event in pygame.event.get():
     if event.type == pygame.QUIT:
@@ -46,7 +46,9 @@ class TestAddCards(unittest.TestCase):
     #testGame = runGame.GameRunner()
     #testPlayer = player.Player(testGame, 2)
     def runTest(self):
+        print("hello")
         testGame = runGame.GameRunner()
         testPlayer = player.Player(testGame, 2)
         Card1 = cardTypes.ResCard.Brick
         testPlayer.addCards(Card1)
+TestAddCards.runTest
