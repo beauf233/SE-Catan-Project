@@ -18,7 +18,7 @@ class GameRunner:
         for i in range(0,53):
             self.nodes.append(NodeObject(i))
 
-        print('fin')
+        print('Test GameRunner intiated')
         self.developDeck = self.shuffleDevelopCards()
         self.innitHexagons(hexRelationships)
 
@@ -136,6 +136,8 @@ class GameRunner:
             
             #return hexagons
     
+    #Generates 2 seperate integer values to simulate a random dice roll
+    #Results are summed and the value returned
     def rollDice(self):
         roll1 = random.randint(1,6)
         roll2 = random.randint(1,6)
