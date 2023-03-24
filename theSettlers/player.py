@@ -56,7 +56,7 @@ class Player:
     # Adds the development card to the players development card deck
     def addDevCard(self, devCard):
         self.developCards.append(devCard)
-        print("yo")
+        print("Test addDevCard")
 
     # Removes a development card from the players deck
     def removeDevelopCard(self, card):
@@ -65,10 +65,11 @@ class Player:
 
     # Checks if a specific development card is in a players deck
     def has_dev_cards(self, card):
-        if self.developCards.__contains__(card):
-            return True
-        else:
-            return False
+        #if self.developCards.__contains__(card):
+        #    return True
+        #else:
+        #    return False
+        return self.developCards.__contains__(card)
 
     def buildSettlement(self, corner):
         # The needed resources the player will need to build a settlement
