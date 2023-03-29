@@ -20,20 +20,20 @@ class Player:
         self.longest_road_length = 0
 
     # Adds any amount of cards to the players card deck
-    def addCards(self, cards):
+    def addResCards(self, cards):
         # Loops through each card thats given
         for card in cards:
             self.resCards.append(card)
 
     # Removes any amount of cards from the players card deck
-    def removeCards(self, cards):
+    def removeResCards(self, cards):
         # Loops through each card thats given
         for card in cards:
             # Finds index of specific card in the players deck and deletes that card from the players deck
             del self.cards[self.cards.index(card)]
     
     # Checks to see if the given cards are in the players deck
-    def has_cards(self, cards):
+    def hasRescards(self, cards):
 
         # Will duplicate the cards to effectively check if needed cards
         # are in the players deck
@@ -59,12 +59,12 @@ class Player:
         print("Test addDevCard")
 
     # Removes a development card from the players deck
-    def removeDevelopCard(self, card):
+    def removeDevCard(self, card):
         # Finds the index of the card in the players deck and deletes it from the players deck
         del self.developCards[self.developCards.index(card)]
 
     # Checks if a specific development card is in a players deck
-    def has_dev_cards(self, card):
+    def hasDevCards(self, card):
         #if self.developCards.__contains__(card):
         #    return True
         #else:
