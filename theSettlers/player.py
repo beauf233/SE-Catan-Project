@@ -9,7 +9,7 @@ class Player:
         # the game the player belongs to
         self.game = game
         # the player number for this player
-        self.num = num
+        self.playerNum = num
         # the number of victory points
         self.victory_points = 0
         # List holding the resource cards the player has from the Enum 'cardTypes'
