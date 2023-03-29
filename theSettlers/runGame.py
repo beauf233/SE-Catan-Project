@@ -69,7 +69,7 @@ class GameRunner:
         return developDeck
     
 
-    def pickUpCard(self, i):
+    def pickUpDevCard(self, i):
         self.players[i].addDevCard(self.developDeck.pop())
 
     def buildDevelopCard(self, i):
