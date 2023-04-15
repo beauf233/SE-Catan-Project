@@ -1,8 +1,8 @@
 from player import Player
-from cardTypes import DevCard, ResCard
-from hexValues import hexType
-from hexagonObject import HexagonObject
-from nodeObject import NodeObject
+from card_types import DevCard, ResCard
+from hex_values import hexType
+from hexagon_object import HexagonObject
+from node_object import NodeObject
 import random 
 
 class GameRunner:
