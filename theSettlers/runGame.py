@@ -143,5 +143,6 @@ class GameRunner:
         roll2 = random.randint(1,6)
         combRoll = roll1+roll2
         print(combRoll)
+        return combRoll
         #for i in range(0,5):
         #    self.nodes[ self.hexagons[4].giveNodes(5) ]

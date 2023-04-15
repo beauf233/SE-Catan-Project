@@ -23,14 +23,20 @@ class Player:
     def addResCards(self, cards):
         # Loops through each card thats given
         for card in cards:
-            self.resCards.append(card)
+            #print(card)
+            #Simplest check to make sure the card is correct type
+            #Won't be used by the user but will be helpful for debugging
+            if isinstance(card, ResCard):
+                self.resCards.append(card)
+            else:
+                print("That was not a Rescard")
 
     # Removes any amount of cards from the players card deck
     def removeResCards(self, cards):
         # Loops through each card thats given
         for card in cards:
             # Finds index of specific card in the players deck and deletes that card from the players deck
-            del self.cards[self.cards.index(card)]
+            del self.resCards[self.resCards.index(card)]
     
     # Checks to see if the given cards are in the players deck
     def hasRescards(self, cards):
@@ -40,7 +46,6 @@ class Player:
         cardsDuplicate = self.resCards[:]
 
         for card in cards:
-            print("Test")
             # Checks the number of times the card appears in the list
             # if it is 0 that means the card thats being searched for
             # isn't in the players deck and will return false
