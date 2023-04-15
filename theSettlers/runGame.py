@@ -18,7 +18,7 @@ class GameRunner:
         for i in range(0,53):
             self.nodes.append(NodeObject(i))
 
-        print('Test GameRunner intiated')
+        #print('Test GameRunner intiated')
         self.developDeck = self.shuffleDevelopCards()
         self.innitHexagons(hexRelationships)
 

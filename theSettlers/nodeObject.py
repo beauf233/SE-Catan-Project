@@ -2,7 +2,7 @@
 class NodeObject:
 
     def __init__(self, number):
-        print('fin')
+        print('Node Object Intialisation Marker')
 
     def give(n):
         print

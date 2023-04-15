@@ -18,7 +18,7 @@ class Player:
         self.developCards = []
         # the longest road segment this player has
         self.longest_road_length = 0
-
+    
     # Adds any amount of cards to the players card deck
     def addResCards(self, cards):
         # Loops through each card thats given
@@ -37,9 +37,10 @@ class Player:
 
         # Will duplicate the cards to effectively check if needed cards
         # are in the players deck
-        cardsDuplicate = self.cards[:]
+        cardsDuplicate = self.resCards[:]
 
         for card in cards:
+            print("Test")
             # Checks the number of times the card appears in the list
             # if it is 0 that means the card thats being searched for
             # isn't in the players deck and will return false
