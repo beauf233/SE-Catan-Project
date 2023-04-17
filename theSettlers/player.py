@@ -1,7 +1,4 @@
 from card_types import ResCard,DevCard
-import unittest
-
-
 
 # The Class for the player
 class Player:
@@ -16,8 +13,10 @@ class Player:
         self.resCards = []
         # List holding the development cards the player has from the Enum 'cardTypes'
         self.developCards = []
-        # the longest road segment this player has
+        # The longest road segment this player has
         self.longest_road_length = 0
+        # List holding the roads the player has built
+        self.playerRoads = []
     
     # Adds any amount of cards to the players card deck
     def addResCards(self, cards):
@@ -90,9 +89,3 @@ class Player:
         if not self.has_cards(cards_needed):
             print("not enough of the right cards") ######## FIX #######
             return None
-    
-        
-
-
-        
-

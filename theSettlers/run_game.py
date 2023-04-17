@@ -11,6 +11,7 @@ class GameRunner:
 
         self.players = []
         self.nodes = []
+        self.roads = []
         hexRelationships =[[0, 3, 4, 7, 8, 12], [1, 4, 5, 8, 9, 13], [2, 5, 6, 9, 10, 14], [7, 11, 12, 16, 17, 22], [8, 12, 13, 17, 18, 23], [9, 13, 14, 18, 19, 24], [10, 14, 15, 19, 20, 25], [16, 21, 22, 27, 28, 33], [17, 22, 23, 28, 29, 34], [18, 23, 24, 29, 30, 35], [19, 24, 25, 30, 31, 36], [20, 25, 26, 31, 32, 37], [28, 33, 34, 38, 39, 43], [29, 34, 35, 39, 40, 44], [30, 35, 36, 40, 41, 45], [31, 36, 37, 41, 42, 46], [39, 43, 44, 47, 48, 51], [40, 44, 45, 48, 49, 52], [41, 45, 46, 49, 50, 53]]
         for i in range(numPlayers):
             self.players.append(Player(game=self, num=i)) 
@@ -151,7 +152,19 @@ class GameRunner:
         roll1 = random.randint(1,6)
         roll2 = random.randint(1,6)
         combRoll = roll1+roll2
-        print(combRoll)
+        #print(combRoll)
         return combRoll
         #for i in range(0,5):
         #    self.nodes[ self.hexagons[4].giveNodes(5) ]
+
+    def buildRoad(self, node1, node2, builderPlayer):
+        
+        if node1 == node2:
+            print("You have to choose different nodes to build a road")
+        elif self.roads.__contains__([node1,node2]):
+            print("There is already a road here")
+        elif not (self.players[builderPlayer].playerRoads.__contains__(node1) or self.players[builderPlayer].playerRoads.__contains__(node1)):
+            print("You need to have a connecting road to build a road here")
+        else:
+            self.roads.append([node1,node2])
+            self.players[builderPlayer].playerRoads.append([node1,node2])
