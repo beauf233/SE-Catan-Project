@@ -2,6 +2,7 @@ import unittest
 from player import Player
 from card_types import ResCard,DevCard
 from run_game import GameRunner
+from node_object import NodeObject
 
 class testPlayerClass(unittest.TestCase):
     
@@ -71,5 +72,18 @@ class testRunGame(unittest.TestCase):
             #print("roll number: "+ str(rollNumber))
             self.assertTrue(rollNumber in range(0,13))
             i += 1
+
+class testBuildRoad(unittest.TestCase):
+    def testSameNodePassed(self):
+        testNode1 = NodeObject(1)
+        testGameRunner = GameRunner(1)
+        testGameRunner.buildRoad(testNode1, testNode1, 0)
+        
+    def testRoadAlreadyExist(self):
+        testNode1 = NodeObject(1)
+        testNode2 = NodeObject(2)
+        testGameRunner = GameRunner(1)
+        testGameRunner.roads.append([testNode1, testNode2])
+        testGameRunner.buildRoad(testNode1, testNode2, 0)
 #Randon line
 unittest.main()
