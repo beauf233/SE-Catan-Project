@@ -13,16 +13,16 @@ class testPlayerClass(unittest.TestCase):
         listOfCards = [testResCard]
         player.addResCards(listOfCards)
         #print("test:" +str(player.hasRescards(listOfCards)))
-        self.assertEqual(player.hasRescards(listOfCards), True, "card not present")
+        self.assertEqual(player.hasResCards(listOfCards), True, "card not present")
         listOfCards.append(testResCard2)
-        self.assertEqual(player.hasRescards(listOfCards), False, "card not present")
+        self.assertEqual(player.hasResCards(listOfCards), False, "card not present")
         listOfCardsToCheck = listOfCards
         del listOfCards[1]
         player.addResCards(listOfCards)
-        self.assertEqual(player.hasRescards(listOfCardsToCheck), True, "card not present")
+        self.assertEqual(player.hasResCards(listOfCardsToCheck), True, "card not present")
         player.removeResCards(listOfCards)
         listOfCardsToCheck = [testResCard]
-        self.assertEqual(player.hasRescards(listOfCardsToCheck), True)
+        self.assertEqual(player.hasResCards(listOfCardsToCheck), True)
     
         
         testDevCard1 = DevCard(1)
@@ -30,7 +30,7 @@ class testPlayerClass(unittest.TestCase):
         listOfCards.append(testDevCard1)
         player.addResCards(listOfCards)
         
-        self.assertEqual(player.hasRescards(listOfCards), False)
+        self.assertEqual(player.hasResCards(listOfCards), False)
     
     def testAddHasDevCardTrueCase(self):
         currentGame = GameRunner(1)
@@ -48,13 +48,13 @@ class testRunGame(unittest.TestCase):
     
     def testPlayerPickUpDevCard(self):
         testGameRunner = GameRunner(2)
-        testDevCard = testGameRunner.developDeck[0]
+        testDevCard = testGameRunner.developDeck[24]
         testGameRunner.pickUpDevCard(0)
-        testPlayer = Player
+        #testPlayer = Player
         testPlayer = testGameRunner.getPlayer(0)
-        
-        
-        self.assertEqual(testPlayer.hasCard())
+    
+        print("Final Test")
+        self.assertEqual(testPlayer.hasDevCards(testDevCard), True)
 
 
 #Randon line
