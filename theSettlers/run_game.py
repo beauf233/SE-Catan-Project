@@ -79,6 +79,8 @@ class GameRunner:
     def pickUpDevCard(self, i):
         self.players[i].addDevCard(self.developDeck.pop())
 
+    #Method used to make a development card
+    #Method needs to change the develop card
     def buildDevelopCard(self, i):
         cardsNeeded = [
             ResCard.Sheep,
@@ -86,10 +88,10 @@ class GameRunner:
             ResCard.Ore
         ]
 
-        if not self.players[i].has_cards(cardsNeeded):
+        if not self.players[i].hasResCards(cardsNeeded):
             return None
         else:
-            self.players[i].pickUpCard(i)
+            self.pickUpDevCard(i)
     
     def innitHexagons(self, hexRelationships):
         self.hexagons = []

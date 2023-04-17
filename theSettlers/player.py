@@ -62,7 +62,7 @@ class Player:
     # Adds the development card to the players development card deck
     def addDevCard(self, devCard):
         self.developCards.append(devCard)
-        print("Test addDevCard")
+        #print("Test addDevCard")
 
     # Removes a development card from the players deck
     def removeDevCard(self, card):

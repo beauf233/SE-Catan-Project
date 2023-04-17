@@ -41,11 +41,14 @@ class testPlayerClass(unittest.TestCase):
         self.assertEqual(testPlayer.hasDevCards(listOfCards), True, "card not present")
 
 class testRunGame(unittest.TestCase):
+    #Tests the shuffleDevelopCards method
     def testShuffleDevelopDeck(self):
         testGameRunner = GameRunner(3)
         testDevelopCardDeck = testGameRunner.shuffleDevelopCards()
         self.assertEqual(len(testDevelopCardDeck), 25)
     
+    #Tests the pickUpDevCard in gameRunner by using the hasDevCards function in player
+    #Tests the getPlayer method
     def testPlayerPickUpDevCard(self):
         testGameRunner = GameRunner(2)
         testDevCard = testGameRunner.developDeck[24]
