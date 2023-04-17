@@ -61,7 +61,7 @@ class testRunGame(unittest.TestCase):
     #Testing the intialisation of the hexagons
     def testInnitHexagons(self):
         testGameRunner = GameRunner(1)
-        print("Number of hexagons:"+ str(len(testGameRunner.hexagons)))
+        #print("Number of hexagons:"+ str(len(testGameRunner.hexagons)))
         self.assertEqual(len(testGameRunner.hexagons), 19)
     #Tests the dice roll method
     def testRollDice(self):
@@ -72,8 +72,12 @@ class testRunGame(unittest.TestCase):
             #print("roll number: "+ str(rollNumber))
             self.assertTrue(rollNumber in range(0,13))
             i += 1
-
+#This test class would fit the convention better as just a series of tests
+#within the gameRunner but the naming system needed would be more complex than
+#necessary
 class testBuildRoad(unittest.TestCase):
+    #Currently using print statments as the output so hard to test
+    #If code changes need to update these unit tests
     def testSameNodePassed(self):
         testNode1 = NodeObject(1)
         testGameRunner = GameRunner(1)
@@ -85,5 +89,20 @@ class testBuildRoad(unittest.TestCase):
         testGameRunner = GameRunner(1)
         testGameRunner.roads.append([testNode1, testNode2])
         testGameRunner.buildRoad(testNode1, testNode2, 0)
-#Randon line
+
+    def testRoadNeedsConnectingRoad(self):
+        testNode1 = NodeObject(1)
+        testNode2 = NodeObject(2)
+        testGameRunner = GameRunner(1)
+        testGameRunner.buildRoad(testNode1, testNode2, 0)
+
+    def testBuildRoad(self):
+        testNode1 = NodeObject(1)
+        testNode2 = NodeObject(2)
+        testNode3 = NodeObject(3)
+        testGameRunner = GameRunner(1)
+        testGameRunner.players[0].playerRoads.append(testNode2)
+        testGameRunner.players[0].playerRoads.append(testNode3)
+        testGameRunner.roads.append([testNode2, testNode3])
+        testGameRunner.buildRoad(testNode1, testNode2, 0)
 unittest.main()

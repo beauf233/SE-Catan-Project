@@ -27,8 +27,9 @@ class Player:
             #Won't be used by the user but will be helpful for debugging
             if isinstance(card, ResCard):
                 self.resCards.append(card)
-            else:
-                print("That was not a Rescard")
+            #Only useful if needing to break from the loop
+            #else:
+            #    print("That was not a Rescard")
 
     # Removes any amount of cards from the players card deck
     def removeResCards(self, cards):
