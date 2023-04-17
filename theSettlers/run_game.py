@@ -22,8 +22,8 @@ class GameRunner:
         self.developDeck = self.shuffleDevelopCards()
         self.innitHexagons(hexRelationships)
 
-    def getPlayer(self, numPlayer):
-        return self.players(numPlayer)
+    def getPlayer(self, chosePlayer):
+        return self.players[chosePlayer]
 
     def shuffleDevelopCards(self):
         developDeck = []

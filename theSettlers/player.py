@@ -39,7 +39,7 @@ class Player:
             del self.resCards[self.resCards.index(card)]
     
     # Checks to see if the given cards are in the players deck
-    def hasRescards(self, cards):
+    def hasResCards(self, cards):
 
         # Will duplicate the cards to effectively check if needed cards
         # are in the players deck
