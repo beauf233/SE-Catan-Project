@@ -55,10 +55,21 @@ class testRunGame(unittest.TestCase):
         testGameRunner.pickUpDevCard(0)
         #testPlayer = Player
         testPlayer = testGameRunner.getPlayer(0)
-    
-        print("Final Test")
         self.assertEqual(testPlayer.hasDevCards(testDevCard), True)
 
-
+    #Testing the intialisation of the hexagons
+    def testInnitHexagons(self):
+        testGameRunner = GameRunner(1)
+        print("Number of hexagons:"+ str(len(testGameRunner.hexagons)))
+        self.assertEqual(len(testGameRunner.hexagons), 19)
+    #Tests the dice roll method
+    def testRollDice(self):
+        testGameRunner = GameRunner(1)
+        i  = 0
+        while i < 1000:  
+            rollNumber = testGameRunner.rollDice()
+            #print("roll number: "+ str(rollNumber))
+            self.assertTrue(rollNumber in range(0,13))
+            i += 1
 #Randon line
 unittest.main()
