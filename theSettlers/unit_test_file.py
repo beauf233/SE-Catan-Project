@@ -1,7 +1,7 @@
 import unittest
 from player import Player
-from cardTypes import ResCard,DevCard
-from runGame import GameRunner
+from card_types import ResCard,DevCard
+from run_game import GameRunner
 
 class testPlayerClass(unittest.TestCase):
     
@@ -23,7 +23,7 @@ class testPlayerClass(unittest.TestCase):
         player.removeResCards(listOfCards)
         listOfCardsToCheck = [testResCard]
         self.assertEqual(player.hasRescards(listOfCardsToCheck), True)
-
+    
         
         testDevCard1 = DevCard(1)
         del listOfCards[:]
@@ -39,4 +39,21 @@ class testPlayerClass(unittest.TestCase):
         listOfCards = [testDevCard]
         testPlayer.addDevCard(listOfCards)
         self.assertEqual(testPlayer.hasDevCards(listOfCards), True, "card not present")
+
+class testRunGame(unittest.TestCase):
+    def testShuffleDevelopDeck(self):
+        testGameRunner = GameRunner(3)
+        testDevelopCardDeck = testGameRunner.shuffleDevelopCards()
+        self.assertEqual(len(testDevelopCardDeck), 25)
+    
+    def testPlayerPickUpDevCard(self):
+        testGameRunner = GameRunner(2)
+        testDevCard = testGameRunner.developDeck[0]
+        testGameRunner.pickUpDevCard(0)
+        testPlayer = Player
+        testPlayer = testGameRunner.getPlayer(0)
+        
+        
+        self.assertEqual(testPlayer.hasCard())
+
 unittest.main()

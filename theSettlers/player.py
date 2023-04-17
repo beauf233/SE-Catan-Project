@@ -1,4 +1,4 @@
-from cardTypes import ResCard,DevCard
+from card_types import ResCard,DevCard
 import unittest
 
 
