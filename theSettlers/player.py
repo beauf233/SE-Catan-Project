@@ -89,3 +89,5 @@ class Player:
         if not self.has_cards(cards_needed):
             print("not enough of the right cards") ######## FIX #######
             return None
+        
+    
