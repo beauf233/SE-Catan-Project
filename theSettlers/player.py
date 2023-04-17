@@ -1,48 +1,81 @@
 from card_types import ResCard,DevCard
 
-# The Class for the player
 class Player:
+    """
+    This class is designed to be the class that holds the information pertinent to each individual player,
+    it shall store the information for the resCards and devCards that the player posesses. As well as this,
+    each player will store their own scores as far as victory points and longest road achievements etc. These
+    will be accessible from other classes and will be used by other methods
+    
+    Attributes:
+    :game - The game the player belongs to
+    :playerNum - The players number
+    :victory_points - The num of victory points the player has
+    :resCards - List holding the resource cards the player has from the Enum 'cardTypes'
+    :developCards - List holding the development cards the player has from the Enum 'cardTypes'
+    :longest_road_length - The length of the longest road segment a player has
+    :playerRoads - The list of roads the player has
+    """
+
     def __init__ (self, game, num):
-        # the game the player belongs to
+        """
+        Parameters:
+        :game - The game that the player will be apart of
+        :num - The value that is used to identify each player (playerNum)
+        """
+        
         self.game = game
-        # the player number for this player
         self.playerNum = num
-        # the number of victory points
         self.victory_points = 0
-        # List holding the resource cards the player has from the Enum 'cardTypes'
         self.resCards = []
-        # List holding the development cards the player has from the Enum 'cardTypes'
         self.developCards = []
-        # The longest road segment this player has
         self.longest_road_length = 0
-        # List holding the roads the player has built
         self.playerRoads = []
     
-    # Adds any amount of cards to the players card deck
     def addResCards(self, cards):
+        """
+        In this method there will be a list of resCards passed to it, and will then be added
+        to a players resCard deck. This will be used when the game rolls a dice and resource 
+        cards are distrbuted
+
+        Parameters:
+        :cards - A list of resCards that will be added to the players resCard list
+        """
         # Loops through each card thats given
         for card in cards:
-            #print(card)
-            #Simplest check to make sure the card is correct type
-            #Won't be used by the user but will be helpful for debugging
             if isinstance(card, ResCard):
                 self.resCards.append(card)
-            #Only useful if needing to break from the loop
             #else:
             #    print("That was not a Rescard")
 
-    # Removes any amount of cards from the players card deck
     def removeResCards(self, cards):
+        """
+        This method will remove as many cards as passed to it from the players resCard list.
+        This will be used when the player either loses cards due to a game function, or when they
+        are purchasing a building or card
+
+        Parameters:
+        :cards - A list of resCards that will be removed from the players resCard list
+        """
         # Loops through each card thats given
         for card in cards:
             # Finds index of specific card in the players deck and deletes that card from the players deck
             del self.resCards[self.resCards.index(card)]
     
-    # Checks to see if the given cards are in the players deck
     def hasResCards(self, cards):
+        """
+        Checks the players resCards list to see if it contains the complete set of cards that are
+        passed to the method. The method will only return true if every single card that is passed is
+        present within the players resCard list. It takes into account any cards there are multiple of
+        within the passed cards list and checks for the correct number of the cards in the resCards list
+
+        Parameters:
+        :cards - The cards to be removed from the resCards list
+        """
 
         # Will duplicate the cards to effectively check if needed cards
-        # are in the players deck
+        # are in the players deck. This will be used to check for correct
+        # numbers of each card
         cardsDuplicate = self.resCards[:]
 
         for card in cards:
@@ -59,23 +92,35 @@ class Player:
         # As the loop has been completed that means all cards were found in the deck
         return True
     
-    # Adds the development card to the players development card deck
     def addDevCard(self, devCard):
+        """
+        Adds a singular devCard to the players developCards list
+
+        Parameters:
+        :devCard - The development card that is to be added
+        """
         self.developCards.append(devCard)
         #print("Test addDevCard")
 
-    # Removes a development card from the players deck
-    def removeDevCard(self, card):
-        # Finds the index of the card in the players deck and deletes it from the players deck
-        del self.developCards[self.developCards.index(card)]
+    
+    def removeDevCard(self, devCard):
+        """
+        Removes a singular devCard from the developCards list
 
-    # Checks if a specific development card is in a players deck
-    def hasDevCards(self, card):
-        #if self.developCards.__contains__(card):
-        #    return True
-        #else:
-        #    return False
-        return self.developCards.__contains__(card)
+        Parameters:
+        :devCard - The development card that is to be removed
+        """
+        del self.developCards[self.developCards.index(devCard)]
+
+    def hasDevCards(self, devCard):
+        """
+        Checks to see if a singular devCard is in the developCards list of the given player
+        object
+
+        Parameters:
+        :devCard - The development card to be checked for its presence in the developCards list
+        """
+        return self.developCards.__contains__(devCard)
 
     def buildSettlement(self, corner):
         # The needed resources the player will need to build a settlement
