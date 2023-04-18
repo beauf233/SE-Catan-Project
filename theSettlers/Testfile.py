@@ -47,8 +47,8 @@ class TestAddCards(unittest.TestCase):
     #testPlayer = player.Player(testGame, 2)
     def runTest(self):
         print("hello")
-        testGame = runGame.GameRunner()
+        testGame = run_game.GameRunner()
         testPlayer = player.Player(testGame, 2)
-        Card1 = cardTypes.ResCard.Brick
+        Card1 = card_types.ResCard.Brick
         testPlayer.addCards(Card1)
 TestAddCards.runTest
