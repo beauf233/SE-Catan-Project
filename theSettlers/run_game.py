@@ -6,9 +6,27 @@ from node_object import NodeObject
 import random 
 
 class GameRunner:
+    """
+    This class is designed to hold all the information pertinent to a specific instance 
+    of a game. This will involve holding all of the players that are in the game, and also  
+    storing the information related to the hexagons and their intialisation as well. This class
+    is able to add as many players as specified to the game
+
+    Attributes:
+    :players - A list containing all the player objects
+    :nodes - A list containing all the nodes which will be related to the hexagons
+    :roads - A list that contains all the roads made in the game
+    :hexRelationships - A list containing lists which themselves contain numbers relating to how the
+    nodes will relate to the hexagons
+    :developDeck - A list containing 25 shuffled development cards
+    :hexagons - A list containing all the hexagon objects
+    """
 
     def __init__(self, numPlayers):
-
+        """
+        Parameters:
+        :numPlayers - The number of players in this game instance
+        """
         self.players = []
         self.nodes = []
         self.roads = []
@@ -24,13 +42,28 @@ class GameRunner:
         self.innitHexagons(hexRelationships)
 
     def getPlayer(self, chosePlayer):
+        """
+        Simple accessor method created in order to retrieve the specific player 
+        which is identified using the chosePlayer parameter
+
+        Parameters:
+        :chosePlayer - Int used to identify the desired player from the list
+        """
+
         return self.players[chosePlayer]
 
     def shuffleDevelopCards(self):
+        """
+        This method is designed to return a list that contains a randomised order of devCards,
+        this will be used when a player wants to purchase a devCard as it means the game can simply 
+        pop a card off the end of the list and give it to the player who will then add it to their
+        list of devCards. The number of cards in the deck will be 25.
+        """
+
         developDeck = []
 
-
         # Numbers of each cards present in the game
+        # There are 25 total
         knightCards = 14
         victoryPointCards = 5
         roadBuilding = 2
@@ -72,17 +105,37 @@ class GameRunner:
                         del myNumbers[myNumbers.index(4)]
         return developDeck
     
-    #Added to display the developDeck to ensure that it was shuffled
     def displayDevelopDeck(self):
+        """
+        This method is used to display the developDeck. This was necessary so that during testing it was
+        easy to see that the developDeck had been randomised and not just the same order of cards added.
+        """
+
         for devCard in self.developDeck:
             print(devCard)
 
     def pickUpDevCard(self, i):
+        """
+        This mutator method is used so that from within the GameRunner object it is possible to add devCards
+        to a specific player
+        """
+
         self.players[i].addDevCard(self.developDeck.pop())
 
     #Method used to make a development card
     #Method needs to change the develop card
     def buildDevelopCard(self, i):
+        """
+        This method is to be used by the player in the event they attempt to purchase a development 
+        card. It does this by creating a list of cards that are needed, which it then passes to the
+        player object via the hasResCards method that will determine if the player has the required 
+        cards for the transaction. If the player does have the resCards needed then a devCard will 
+        be picked up from the developDeck.
+
+        Parameters:
+        :i - The identifier for the player
+        """
+
         cardsNeeded = [
             ResCard.Sheep,
             ResCard.Wheat,
@@ -95,6 +148,18 @@ class GameRunner:
             self.pickUpDevCard(i)
     
     def innitHexagons(self, hexRelationships):
+        """
+        This method is used to create a randomised list of hexagons that are to be used in the board.
+        This randomised list will contain the same 19 hexagons, just in a random order. The hexagons 
+        will be intialised with the value in hexRelationships that it corresponds to. i.e whatever 
+        hexagon is chosen first will have the set of hexRelaationships found at index 0, the second 
+        hexagon index 1 etc.
+
+        Parameters:
+        :hexRelationships - A list containing lists of all the integer nodes that correspond to each 
+        hexagon. These will be fundamental in allowing roads and settlements to be built properly
+        """
+
         self.hexagons = []
 
         # Number of certain tile type on the board
@@ -143,12 +208,15 @@ class GameRunner:
                     forest -= 1
                     if forest == 0:
                         del myNumbers[myNumbers.index(5)]
-            
-            #return hexagons
     
     #Generates 2 seperate integer values to simulate a random dice roll
     #Results are summed and the value returned
     def rollDice(self):
+        """
+        This method is the backend for a dice roll. It choses two random integer values between 1 and 6
+        and then sums the result. This result is the value the player uses for their turn
+        """
+
         roll1 = random.randint(1,6)
         roll2 = random.randint(1,6)
         combRoll = roll1+roll2
@@ -158,7 +226,18 @@ class GameRunner:
         #    self.nodes[ self.hexagons[4].giveNodes(5) ]
 
     def buildRoad(self, node1, node2, builderPlayer):
-    
+        """
+        This method is used to check that a road can be built by a particular player at two given nodes. There
+        is a conditional statement throughout this method that is checking the applicability of a given players 
+        choice of two nodes. This is crucial as the placement of roads is an important component in tactics 
+        within the Settlers
+
+        Parameters:
+        :node1 - The first node in the road that is beind tested
+        :node2 - The second node in the road that is beind tested
+        :builderPlayer - The identifier for the player attempting to build the road
+        """
+
         if node1 == node2:
             print("You have to choose different nodes to build a road")
         elif self.roads.__contains__([node1,node2]):

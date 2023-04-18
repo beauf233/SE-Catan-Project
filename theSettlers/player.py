@@ -41,6 +41,7 @@ class Player:
         Parameters:
         :cards - A list of resCards that will be added to the players resCard list
         """
+        
         # Loops through each card thats given
         for card in cards:
             if isinstance(card, ResCard):

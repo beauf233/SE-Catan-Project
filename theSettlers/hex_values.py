@@ -1,7 +1,10 @@
 from enum import Enum
 
-# The different types of hexagon types
 class hexType(Enum):
+    """
+    An Enum class used to represent each of the available hexagon types
+    """
+
     Desert = 0
     Mountain = 1
     Hill = 2

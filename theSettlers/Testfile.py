@@ -1,10 +1,10 @@
 import pygame
-from cardTypes import DevCard
+from card_types import DevCard
 import random
 import unittest
 import player
-import cardTypes
-import runGame
+import card_types
+import run_game
 
 #Board view set up
 background_colour = (0,131,185)

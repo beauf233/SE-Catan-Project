@@ -1,7 +1,9 @@
 from enum import Enum
 
-# The different types of resource cards
 class ResCard(Enum):
+    """
+    An Enum class used to represent each of the available resource cards
+    """
 
     # the resource cards
     Wood = 0
@@ -10,8 +12,10 @@ class ResCard(Enum):
     Sheep = 3
     Wheat = 4
 
-# The different types of developement cards
 class DevCard(Enum):
+    """
+    An Enum class used to represent each of the available development cards
+    """
 
     # the developement cards
     VictoryPoint = 0
