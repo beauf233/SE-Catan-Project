@@ -25,5 +25,5 @@ class NodeObject:
     
     def validSettlementLocation():
         print
-        
+
     

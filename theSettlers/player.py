@@ -27,10 +27,11 @@ class Player:
         self.game = game
         self.playerNum = num
         self.victory_points = 0
+        self.longest_road_length = 0
         self.resCards = []
         self.developCards = []
-        self.longest_road_length = 0
         self.playerRoads = []
+        self.playerSettlements = []
     
     def addResCards(self, cards):
         """
@@ -137,4 +138,14 @@ class Player:
             print("not enough of the right cards") ######## FIX #######
             return None
         
-    
+    def updateLongestRoad(self):
+        currentLongestRoad = 0
+        currentNode = 0
+
+        for road in range(0, self.playerRoads):
+            for node in range(0,1):
+                currentNode = self.playerRoads(road, node)
+                for l in range(0, self.playerRoads):
+                    for m in range(0, self.playerRoads):
+                        if currentNode == self.playerRoads(l,m):
+                            

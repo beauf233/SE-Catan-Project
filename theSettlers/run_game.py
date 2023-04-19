@@ -30,6 +30,7 @@ class GameRunner:
         self.players = []
         self.nodes = []
         self.roads = []
+        self.settlements = []
         hexRelationships =[[0, 3, 4, 7, 8, 12], [1, 4, 5, 8, 9, 13], [2, 5, 6, 9, 10, 14], [7, 11, 12, 16, 17, 22], [8, 12, 13, 17, 18, 23], [9, 13, 14, 18, 19, 24], [10, 14, 15, 19, 20, 25], [16, 21, 22, 27, 28, 33], [17, 22, 23, 28, 29, 34], [18, 23, 24, 29, 30, 35], [19, 24, 25, 30, 31, 36], [20, 25, 26, 31, 32, 37], [28, 33, 34, 38, 39, 43], [29, 34, 35, 39, 40, 44], [30, 35, 36, 40, 41, 45], [31, 36, 37, 41, 42, 46], [39, 43, 44, 47, 48, 51], [40, 44, 45, 48, 49, 52], [41, 45, 46, 49, 50, 53]]
         for i in range(numPlayers):
             self.players.append(Player(game=self, num=i)) 
@@ -124,7 +125,7 @@ class GameRunner:
 
     #Method used to make a development card
     #Method needs to change the develop card
-    def buildDevelopCard(self, i):
+    def buildDevelopCard(self, builderPlayer):
         """
         This method is to be used by the player in the event they attempt to purchase a development 
         card. It does this by creating a list of cards that are needed, which it then passes to the
@@ -142,10 +143,10 @@ class GameRunner:
             ResCard.Ore
         ]
 
-        if not self.players[i].hasResCards(cardsNeeded):
-            return None
+        if not self.players[builderPlayer].hasResCards(cardsNeeded):
+            print("You do not have the needed resources cards to make this")
         else:
-            self.pickUpDevCard(i)
+            self.pickUpDevCard(builderPlayer)
     
     def innitHexagons(self, hexRelationships):
         """
@@ -225,7 +226,7 @@ class GameRunner:
         #for i in range(0,5):
         #    self.nodes[ self.hexagons[4].giveNodes(5) ]
 
-    def buildRoad(self, node1, node2, builderPlayer):
+    def canBuildRoad(self, node1, node2, builderPlayer):
         """
         This method is used to check that a road can be built by a particular player at two given nodes. There
         is a conditional statement throughout this method that is checking the applicability of a given players 
@@ -237,8 +238,14 @@ class GameRunner:
         :node2 - The second node in the road that is beind tested
         :builderPlayer - The identifier for the player attempting to build the road
         """
+        cardsNeeded = [
+            ResCard.Wood,
+            ResCard.Brick
+        ]
 
-        if node1 == node2:
+        if not self.players[builderPlayer].hasResCards(cardsNeeded):
+            print("You do not have the needed resources cards to make this")
+        elif node1 == node2:
             print("You have to choose different nodes to build a road")
         elif self.roads.__contains__([node1,node2]):
             print("There is already a road here")
@@ -246,5 +253,36 @@ class GameRunner:
             print("You need to have a connecting road to build a road here")
         else:
             print("Road is being built")
-            self.roads.append([node1,node2])
-            self.players[builderPlayer].playerRoads.append([node1,node2])
+            self.buildRoad(node1, node2, builderPlayer)
+    
+    def buildRoad(self, node1, node2, builderPlayer):
+        self.roads.append([node1,node2])
+        self.players[builderPlayer].playerRoads.append([node1,node2])
+
+    def twoIntersectionsAway(self, node):      
+        # TO DO
+        # indexof in array of hexagons and find pattern
+        return True
+
+    def canBuildSettlement(self, node, builderPlayer):
+        
+        cardsNeeded = [
+            ResCard.Wood,
+            ResCard.Brick,
+            ResCard.Sheep,
+            ResCard.Wheat
+        ]
+
+        if not self.players[builderPlayer].hasResCards(cardsNeeded):
+            print("You do not have the needed resources cards to make this")
+        elif self.settlements.__contains__(node):
+            print("There is already a settlement built here")
+        elif not(twoIntersectionsAway(node)):
+            print("A settlement can only be built two intersectios away from a settlement or city")
+        else:
+            print("Settlement is being built")
+            self.buildSettlement(node, builderPlayer)
+
+    def buildSettlement(self, node, builderPlayer):
+        self.settlements.append(node)
+        self.players[builderPlayer].playerSettlements.append(node)
