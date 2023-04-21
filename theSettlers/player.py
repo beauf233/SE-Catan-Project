@@ -47,8 +47,8 @@ class Player:
         for card in cards:
             if isinstance(card, ResCard):
                 self.resCards.append(card)
-            #else:
-            #    print("That was not a Rescard")
+            else:
+                print("That was not a Rescard")
 
     def removeResCards(self, cards):
         """
@@ -102,8 +102,6 @@ class Player:
         :devCard - The development card that is to be added
         """
         self.developCards.append(devCard)
-        #print("Test addDevCard")
-
     
     def removeDevCard(self, devCard):
         """
@@ -123,20 +121,6 @@ class Player:
         :devCard - The development card to be checked for its presence in the developCards list
         """
         return self.developCards.__contains__(devCard)
-
-    def buildSettlement(self, corner):
-        # The needed resources the player will need to build a settlement
-        cards_needed = [
-            ResCard.Wood,
-            ResCard.Brick,
-            ResCard.Sheep,
-            ResCard.Wheat
-        ]
-
-        # Checks to see if the needed cards are in the players deck
-        if not self.has_cards(cards_needed):
-            print("not enough of the right cards")
-            return None
         
     def updateLongestRoad(self):
         currentLongestRoad = 0
@@ -158,3 +142,8 @@ class Player:
             return self.again(node)
         else:
             return 1
+    
+    def findRoadSegements(self):
+        roadSet = []
+        while all == True:
+            for i in range(0, len(self.playerRoads))

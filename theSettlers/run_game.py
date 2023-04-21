@@ -277,7 +277,7 @@ class GameRunner:
             print("You do not have the needed resources cards to make this")
         elif self.settlements.__contains__(node):
             print("There is already a settlement built here")
-        elif not(twoIntersectionsAway(node)):
+        elif not(self.twoIntersectionsAway(node)):
             print("A settlement can only be built two intersectios away from a settlement or city")
         else:
             print("Settlement is being built")
@@ -286,3 +286,6 @@ class GameRunner:
     def buildSettlement(self, node, builderPlayer):
         self.settlements.append(node)
         self.players[builderPlayer].playerSettlements.append(node)
+
+    def moveRobber():
+        print
