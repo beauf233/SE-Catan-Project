@@ -135,17 +135,26 @@ class Player:
 
         # Checks to see if the needed cards are in the players deck
         if not self.has_cards(cards_needed):
-            print("not enough of the right cards") ######## FIX #######
+            print("not enough of the right cards")
             return None
         
     def updateLongestRoad(self):
         currentLongestRoad = 0
         currentNode = 0
 
-        for road in range(0, self.playerRoads):
-            for node in range(0,1):
-                currentNode = self.playerRoads(road, node)
-                for l in range(0, self.playerRoads):
-                    for m in range(0, self.playerRoads):
-                        if currentNode == self.playerRoads(l,m):
-                            
+        for settlementNode in self.playerSettlements:
+            for i in range(0,len(self.playerRoads)):
+                for j in range(0,1):
+                    if settlementNode == self.playerRoads[i,j]:
+                        match j:
+                            case 0:
+                                self.again(self.playerRoads[i,1])
+                            case 1:
+                                self.again(self.playerRoads[i,0])
+            
+    def again(self, node):
+        if self.playerRoads.__contains__(node):
+            self.playerRoads.index(node)
+            return self.again(node)
+        else:
+            return 1
