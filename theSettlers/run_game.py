@@ -291,5 +291,6 @@ class GameRunner:
         self.settlements.append(node)
         self.players[builderPlayer].playerSettlements.append(node)
 
-    def moveRobber():
-        print
+    def moveRobber(self):
+        #print("hi")
+        return None #Was messing up rollDice test so needed a placemarker.

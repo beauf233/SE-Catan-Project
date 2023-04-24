@@ -15,7 +15,9 @@ class testPlayerClass(unittest.TestCase):
     :testAddRemoveHasResCard - tests the methods related to resCards
     :testAddHasRemoveDevCard - tests the methods related to devCards
     """
-    
+    def setUp(self):
+        self.currentGame = GameRunner(1)
+            
     def testAddRemoveHasResCard(self):
         """
         Tests the functionality of the player objects resCard related methods,
@@ -26,10 +28,10 @@ class testPlayerClass(unittest.TestCase):
         :removeResCards
         """
 
-        currentGame = GameRunner(1)
+        #currentGame = GameRunner(1)
         testResCard = ResCard(1)
         testResCard2 = ResCard(1)
-        player = Player(currentGame, 1)
+        player = Player(self.currentGame, 1)
         listOfCards = [testResCard]
         player.addResCards(listOfCards)
         #print("test:" +str(player.hasRescards(listOfCards)))

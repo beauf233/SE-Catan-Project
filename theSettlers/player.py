@@ -146,4 +146,5 @@ class Player:
     def findRoadSegements(self):
         roadSet = []
         while all == True:
-            for i in range(0, len(self.playerRoads))
+            for i in range(0, len(self.playerRoads)):
+                print
