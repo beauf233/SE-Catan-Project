@@ -246,7 +246,7 @@ class GameRunner:
             ResCard.Wood,
             ResCard.Brick
         ]
-
+        
         if not self.players[builderPlayer].hasResCards(cardsNeeded):
             print("You do not have the needed resources cards to make this")
         elif node1 == node2:
