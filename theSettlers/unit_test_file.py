@@ -54,6 +54,7 @@ class testPlayerClass(unittest.TestCase):
     def testAddHasRemoveDevCard(self):
         """
         Tests the functionality of the player object devCard related methods
+        
         Tests the methods:
         :addDevCard
         :hasDevCards
@@ -149,6 +150,7 @@ class testBuildRoad(unittest.TestCase):
     This test class is an extenstion of the testGameRunner class above, a seperate test
     class was used as the importance of the GameRunner.buildRoad method was deemed important
     and complex enough to warrant it's own class of tests
+    
     Test methods used are:
     :testSameNodePassed - tests the error that user passed same two nodes
     :testRoadAlreadyExist - tests to see if specific road already exists
@@ -225,8 +227,15 @@ class testCanBuildSettlement(unittest.TestCase):
     """
     This test class is another extension of the testGamerRunner class, it is seperated as there is a 4 
     conditional branch where the player receives feedback on whether they are able to build a settlement 
-    in a desired place.
+    in a desired place. As with the build road method, the canBuildSettlement method also uses print 
+    statements for displayers errors, so manual checking of print statements will be necessary
+    
+    Test methods used are:
+    :testNeedResourcesForSettlement - Tests if player has required resCards
+    :testAlreadySettlment - Tests if a settlement already exists on selected node
+    :testCanBuildSettlementTrueCase - Tests, given correct conditions, that a settlement is built
     """
+
     def setUp(self):
         self.testGameRunner = GameRunner(1)
         self.cardsNeeded = [
@@ -237,14 +246,40 @@ class testCanBuildSettlement(unittest.TestCase):
         ]
 
     def testNeedResourcesForSettlement(self):
+        """
+        This method tests whether the player has enough resources required to build a settlement, and if they
+        do not then that the appropriate error message is displayed.
+
+        Methods tested:
+        :canBuildSettlement
+        """
         self.testGameRunner.canBuildSettlement(self.testGameRunner.nodes[0], 0)
 
     def testAlreadySettlment(self):
+        """
+        This method tests whether the GameRunner class will be able to filter out when a player tries to build
+        a settlement on a node that already contains a settlement. This will be paramount to ensuring as few 
+        bugs as possible. 
+
+        Methods tested:
+        :canBuildSettlement
+        """
+
         self.testGameRunner.buildSettlement(self.testGameRunner.nodes[0], 0)
         self.testGameRunner.players[0].addResCards(self.cardsNeeded)
         self.testGameRunner.canBuildSettlement(self.testGameRunner.nodes[0], 0)
 
     def testCanBuildSettlementTrueCase(self):
+        """
+        Tests the true case when the player should be able to build a settlement, this requires the player
+        to have chosen a node that is atleast two nodes path from the nearest settlement, and also to have
+        the correct resources needed. Additionally, a settlement cannot already be on this node.
+
+        Methods tested:
+        :canBuildSettlement
+        :buildSettlment
+        """
+
         self.testGameRunner.players[0].addResCards(self.cardsNeeded)
         self.testGameRunner.canBuildSettlement(self.testGameRunner.nodes[0], 0)
         self.testGameRunner.canBuildSettlement(self.testGameRunner.nodes[0], 0)
