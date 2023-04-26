@@ -29,7 +29,7 @@ class testPlayerClass(unittest.TestCase):
         currentGame = GameRunner(1)
         testResCard = ResCard(1)
         testResCard2 = ResCard(1)
-        player = Player(self.currentGame, 1)
+        player = Player(currentGame, 1)
         listOfCards = [testResCard]
         player.addResCards(listOfCards)
         #print("test:" +str(player.hasRescards(listOfCards)))
@@ -221,4 +221,31 @@ class testBuildRoad(unittest.TestCase):
         testGameRunner.roads.append([testNode2, testNode3])
         testGameRunner.buildRoad(testNode1, testNode2, 0)
 
+class testCanBuildSettlement(unittest.TestCase):
+    """
+    This test class is another extension of the testGamerRunner class, it is seperated as there is a 4 
+    conditional branch where the player receives feedback on whether they are able to build a settlement 
+    in a desired place.
+    """
+    def setUp(self):
+        self.testGameRunner = GameRunner(1)
+        self.cardsNeeded = [
+            ResCard.Wood,
+            ResCard.Brick,
+            ResCard.Sheep,
+            ResCard.Wheat
+        ]
+
+    def testNeedResourcesForSettlement(self):
+        self.testGameRunner.canBuildSettlement(self.testGameRunner.nodes[0], 0)
+
+    def testAlreadySettlment(self):
+        self.testGameRunner.buildSettlement(self.testGameRunner.nodes[0], 0)
+        self.testGameRunner.players[0].addResCards(self.cardsNeeded)
+        self.testGameRunner.canBuildSettlement(self.testGameRunner.nodes[0], 0)
+
+    def testCanBuildSettlementTrueCase(self):
+        self.testGameRunner.players[0].addResCards(self.cardsNeeded)
+        self.testGameRunner.canBuildSettlement(self.testGameRunner.nodes[0], 0)
+        self.testGameRunner.canBuildSettlement(self.testGameRunner.nodes[0], 0)
 unittest.main()

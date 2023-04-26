@@ -281,8 +281,8 @@ class GameRunner:
             print("You do not have the needed resources cards to make this")
         elif self.settlements.__contains__(node):
             print("There is already a settlement built here")
-        elif not(self.twoIntersectionsAway(node)):
-            print("A settlement can only be built two intersectios away from a settlement or city")
+        #elif not(self.twoIntersectionsAway(node)):
+        #    print("A settlement can only be built two intersectios away from a settlement or city")
         else:
             print("Settlement is being built")
             self.buildSettlement(node, builderPlayer)
