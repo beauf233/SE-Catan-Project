@@ -31,11 +31,13 @@ class GameRunner:
         self.nodes = []
         self.roads = []
         self.settlements = []
+
         self.woodDeck = []
         self.brickDeck = []
         self.oreDeck = []
         self.sheepDeck = []
         self.wheatDeck = []
+
         self.biggestArmy = 0
         self.playerWithBiggestArmy = None
         hexRelationships =[[0, 3, 4, 7, 8, 12], [1, 4, 5, 8, 9, 13], [2, 5, 6, 9, 10, 14], [7, 11, 12, 16, 17, 22], [8, 12, 13, 17, 18, 23], [9, 13, 14, 18, 19, 24], [10, 14, 15, 19, 20, 25], [16, 21, 22, 27, 28, 33], [17, 22, 23, 28, 29, 34], [18, 23, 24, 29, 30, 35], [19, 24, 25, 30, 31, 36], [20, 25, 26, 31, 32, 37], [28, 33, 34, 38, 39, 43], [29, 34, 35, 39, 40, 44], [30, 35, 36, 40, 41, 45], [31, 36, 37, 41, 42, 46], [39, 43, 44, 47, 48, 51], [40, 44, 45, 48, 49, 52], [41, 45, 46, 49, 50, 53]]
@@ -337,7 +339,19 @@ class GameRunner:
                     node2 = int(input("Input second node"))
                     self.canBuildRoad(node1, node2, chosenPlayer)
                 case DevCard.YearOfPlenty:
-                    self.player[chosenPlayer]
+                    for i in range(0,1):
+                        randomRes = random.randint(0,4)
+                        match randomRes:
+                            case 0:
+                                self.player[chosenPlayer].addResCards(self.woodDeck.pop())
+                            case 1:
+                                self.player[chosenPlayer].addResCards(self.brickDeck.pop())
+                            case 2:
+                                self.player[chosenPlayer].addResCards(self.oreDeck.pop())
+                            case 3:
+                                self.player[chosenPlayer].addResCards(self.sheepDeck.pop())
+                            case 4:
+                                self.player[chosenPlayer].addResCards(self.wheatDeck.pop())
                 case DevCard.Monopoly:
                     None
         
@@ -355,7 +369,7 @@ class GameRunner:
                     self.playerWithBiggestArmy.victory_points -= 2
                 self.playerWithBiggestArmy = player
 
-        self.playerWithBiggestArmy += 2
+        self.playerWithBiggestArmy.victory_points += 2
 
             
 
