@@ -368,8 +368,6 @@ class GameRunner:
                 else:
                     self.playerWithBiggestArmy.victory_points -= 2
                 self.playerWithBiggestArmy = player
-
-        self.playerWithBiggestArmy.victory_points += 2
-
-            
-
+        
+        if not(self.playerWithBiggestArmy == None):
+            self.playerWithBiggestArmy.victory_points += 2
