@@ -334,10 +334,10 @@ class GameRunner:
                     print('test4')
                     node1 = int(input("Input first node"))
                     node2 = int(input("Input second node"))
-                    self.canBuildRoad(node1, node2, chosenPlayer)
+                    self.canBuildRoad(self.nodes[node1-1], self.nodes[node2-1], chosenPlayer)
                     node1 = int(input("Input first node"))
                     node2 = int(input("Input second node"))
-                    self.canBuildRoad(node1, node2, chosenPlayer)
+                    self.canBuildRoad(self.nodes[node1-1], self.nodes[node2-1], chosenPlayer)
                 case DevCard.YearOfPlenty:
                     for i in range(0,1):
                         randomRes = random.randint(0,4)
@@ -353,7 +353,24 @@ class GameRunner:
                             case 4:
                                 self.player[chosenPlayer].addResCards(self.wheatDeck.pop())
                 case DevCard.Monopoly:
-                    None
+                    chosenResCard = str(input("What development card do you want to choose?"))
+                    match chosenResCard:
+                            case "wood":
+                                chosenResCard = ResCard.Wood
+                            case "brick":
+                                chosenResCard = ResCard.Brick
+                            case "ore":
+                                chosenResCard = ResCard.Ore
+                            case "sheep":
+                                chosenResCard = ResCard.Sheep
+                            case "wheat":
+                                chosenResCard = ResCard.Wheat
+
+                    for player in self.players:
+                        if not(player == chosenPlayer):
+                            for i in range(0, len(player.resCards)):
+                                if chosenDevCard == player.resCards[i]:
+                                    self.players[chosenPlayer].addResCards(self.player.resCards[i].pop())
         
             self.players[chosenPlayer].removeDevCard(chosenDevCard)
 
