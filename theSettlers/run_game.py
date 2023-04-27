@@ -255,14 +255,8 @@ class GameRunner:
         :node2 - The second node in the road that is beind tested
         :builderPlayer - The identifier for the player attempting to build the road
         """
-        cardsNeeded = [
-            ResCard.Wood,
-            ResCard.Brick
-        ]
-
-        if not self.players[builderPlayer].hasResCards(cardsNeeded):
-            print("You do not have the needed resources cards to make this")
-        elif node1 == node2:
+        
+        if node1 == node2:
             print("You have to choose different nodes to build a road")
         elif self.roads.__contains__([node1,node2]):
             print("There is already a road here")
@@ -324,9 +318,6 @@ class GameRunner:
                     node1 = int(input("Input first node"))
                     node2 = int(input("Input second node"))
                     self.canBuildRoad(node1, node2, chosenPlayer)
-                case :
-
-                case 4:
         
             self.players[chosenPlayer].removeDevCard(chosenDevCard)
 
