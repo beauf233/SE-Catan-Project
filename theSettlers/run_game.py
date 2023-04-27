@@ -41,6 +41,7 @@ class GameRunner:
             self.nodes.append(NodeObject(i))
 
         #print('Test GameRunner intiated')
+        self.resDeck()
         self.developDeck = self.shuffleDevelopCards()
         self.innitHexagons(hexRelationships)
 
@@ -54,6 +55,14 @@ class GameRunner:
         """
 
         return self.players[chosePlayer]
+
+    def resDeck(self):
+        for i in range(0, 18):
+            self.woodDeck.append(ResCard.Wood)
+            self.brickDeck.append(ResCard.Brick)
+            self.oreDeck.append(ResCard.Ore)
+            self.sheepDeck.append(ResCard.Sheep)
+            self.wheatDeck.append(ResCard.Wheat)
 
     def shuffleDevelopCards(self):
         """
@@ -117,13 +126,13 @@ class GameRunner:
         for devCard in self.developDeck:
             print(devCard)
 
-    def pickUpDevCard(self, i):
+    def pickUpDevCard(self, chosenPlayer):
         """
         This mutator method is used so that from within the GameRunner object it is possible to add devCards
         to a specific player
         """
 
-        self.players[i].addDevCard(self.developDeck.pop())
+        self.players[chosenPlayer].addDevCard(self.developDeck.pop())
 
     #Method used to make a development card
     #Method needs to change the develop card
@@ -304,20 +313,28 @@ class GameRunner:
     
     def useDevCards(self, chosenPlayer, chosenDevCard):
         if self.players[chosenPlayer].hasDevCards(chosenDevCard):
+            print('test1')
             match chosenDevCard:
                 case DevCard.VictoryPoint:
+                    print('test2')
                     self.players[chosenPlayer].victory_points += 1
                 case DevCard.Knight:
+                    print('test3')
                     self.moveRobber()
                     self.players[chosenPlayer].playerArmy += 1
                     self.updateLargestArmy()
                 case DevCard.RoadBuilding:
+                    print('test4')
                     node1 = int(input("Input first node"))
                     node2 = int(input("Input second node"))
                     self.canBuildRoad(node1, node2, chosenPlayer)
                     node1 = int(input("Input first node"))
                     node2 = int(input("Input second node"))
                     self.canBuildRoad(node1, node2, chosenPlayer)
+                case DevCard.YearOfPlenty:
+                    self.player[chosenPlayer]
+                case DevCard.Monopoly:
+                    None
         
             self.players[chosenPlayer].removeDevCard(chosenDevCard)
 
