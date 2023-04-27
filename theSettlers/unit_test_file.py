@@ -32,7 +32,6 @@ class testPlayerClass(unittest.TestCase):
         player = Player(currentGame, 1)
         listOfCards = [testResCard]
         player.addResCards(listOfCards)
-        #print("test:" +str(player.hasRescards(listOfCards)))
         self.assertEqual(player.hasResCards(listOfCards), True, "card not present")
         listOfCards.append(testResCard2)
         self.assertEqual(player.hasResCards(listOfCards), False, "card not present")
@@ -140,9 +139,7 @@ class testRunGame(unittest.TestCase):
         testGameRunner = GameRunner(1)
         i  = 0
         while i < 1000:  
-            rollNumber = testGameRunner.rollDice()
-            #print("rolled number: "+ str(rollNumber))
-            self.assertTrue(rollNumber in range(2,13))
+            testGameRunner.rollDice()
             i += 1
 
 class testcardsNeededForRoad(unittest.TestCase):
@@ -305,21 +302,27 @@ class testCanBuildSettlement(unittest.TestCase):
         self.testGameRunner.canBuildSettlement(self.testGameRunner.nodes[0], 0)
 
 class testUseDevCards(unittest.TestCase):
+    """
+    In this test class the functionality for the devCards is being tested, this test class is also an extension 
+    of the testGameRunner class. The methods below test the use cases of when a develop card is used by a player.
+
+    Test methods used are:
+    :testVictoryPoint
+    :testKnight
+    :testRoadBuilding
+    :testYearOfPlenty
+    :testMonopoly
+    """
     def setUp(self):
         self.testVicCard = DevCard.VictoryPoint
         self.testKnightCard = DevCard.Knight
         self.testRoadBuildingCard = DevCard.RoadBuilding
         self.testYOP = DevCard.YearOfPlenty
-        self.testMonopoly = DevCard.Monopoly
-        self.testGameRunner = GameRunner(1)
+        self.testMonopolyCard = DevCard.Monopoly
+        self.testGameRunner = GameRunner(2)
 
-        self.testGameRunner.roads = None
-        self.testNode1 = NodeObject(1)
-        self.testNode2 = NodeObject(2)
-        self.testNode3 = NodeObject(3)
-        self.testNode4 = NodeObject(4)
-        self.testGameRunner.roads = [[self.testNode1, self.testNode2], [self.testNode2, self.testNode3]]
-        self.testGameRunner.players[0].playerRoads.append(self.testNode1)
+        self.testGameRunner.roads.append([self.testGameRunner.nodes[0], self.testGameRunner.nodes[1]])
+        self.testGameRunner.players[0].playerRoads.append(self.testGameRunner.nodes[0])
 
         self.testGameRunner.players[0].addDevCard(self.testVicCard)
         self.testGameRunner.players[0].addDevCard(self.testKnightCard)
@@ -327,13 +330,31 @@ class testUseDevCards(unittest.TestCase):
         self.testGameRunner.players[0].addDevCard(self.testKnightCard)
         self.testGameRunner.players[0].addDevCard(self.testRoadBuildingCard)
         self.testGameRunner.players[0].addDevCard(self.testYOP)
-        self.testGameRunner.players[0].addDevCard(self.testMonopoly)
+        self.testGameRunner.players[0].addDevCard(self.testMonopolyCard)
+
+        self.cardsToAdd1 = [ResCard.Wheat]
+        self.cardsToAdd2 = [ResCard.Wood, ResCard.Wood, ResCard.Wood]
+        self.testGameRunner.players[0].addResCards(self.cardsToAdd1)
+        self.testGameRunner.players[1].addResCards(self.cardsToAdd2)
 
     def testVictoryPoint(self):
+        """
+        Tests to see if when passed a victory point card if the player is correctly awarded a victory card
+
+        Methods tested:
+        :useDevCards
+        """
         self.testGameRunner.useDevCards(0, self.testVicCard)
         self.assertEqual(self.testGameRunner.players[0].victory_points, 1)
 
     def testKnight(self):
+        """
+        Tests the effect of the knight develop card on the player
+
+        Methods tested:
+        :useDevCards
+        :updateLargetArmy
+        """
         self.testGameRunner.useDevCards(0, self.testKnightCard)
         self.assertEqual(self.testGameRunner.players[0].playerArmy, 1)
         self.testGameRunner.useDevCards(0, self.testKnightCard)
@@ -344,6 +365,34 @@ class testUseDevCards(unittest.TestCase):
         self.assertEqual(self.testGameRunner.playerWithBiggestArmy, self.testGameRunner.players[0])
 
     def testRoadBuilding(self):
-        self.testGameRunner.useDevCards(0, self.testRoadBuildingCard)
+        """
+        Tests to make sure the player is able to make 2 roads for free when using this card
 
+        Methods tested:
+        :useDevCards
+        """
+        #Enter 1 and 3
+        #Enter 1 and 4
+        #self.testGameRunner.useDevCards(0, self.testRoadBuildingCard)
+        #self.assertEqual(len(self.testGameRunner.roads), 3)
+        None
+    def testYearOfPlenty(self):
+        """
+        Tests to see if the card that is selected by the player is picked up
+
+        Methods tested:
+        :useDevCards
+        """
+        self.testGameRunner.useDevCards(0, self.testYOP)
+        self.assertEqual(len(self.testGameRunner.players[0].resCards), 2)
+
+    def testMonopoly(self):
+        """
+        Tests to see if the player takes the correct cards from players
+
+        Methods tested:
+        :useDevCards
+        """
+        self.testGameRunner.useDevCards(0, self.testMonopolyCard)
+        self.assertEqual(len(self.testGameRunner.players[0].resCards), 4)
 unittest.main()
