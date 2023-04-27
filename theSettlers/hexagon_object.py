@@ -1,3 +1,6 @@
+from hex_values import hexType
+from card_types import ResCard
+
 
 class HexagonObject:
     """
@@ -27,5 +30,19 @@ class HexagonObject:
         are related to a given hexagon.
         """
         return self.nodeRelationship
+    
+    def giveResType(self):
+        match self.hexagonType:
+            case hexType.Mountain:
+                return ResCard.Ore
+            case hexType.Hill:
+                return ResCard.Brick
+            case hexType.Field:
+                return ResCard.Wheat
+            case hexType.Pasture:
+                return ResCard.Sheep
+            case hexType.Forest:
+                return ResCard.Wood
+
     
                     

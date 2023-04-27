@@ -246,21 +246,69 @@ class GameRunner:
         roll2 = random.randint(1,6)
         combRoll = roll1+roll2
         print(combRoll)
+        resGive = None
+        nodes = []
+        index = []
         match combRoll:
             case 2:
                 index = self.findIndexofAll(self.hexagonNumbers, 2)
-                self.hexagons[index].hexagonType
-                # Give materials
+                self.giveHexagonRes(index[0])
             case 3:
-                None
+                index = self.findIndexofAll(self.hexagonNumbers, 3)
+                self.giveHexagonRes(index[0])
+                self.giveHexagonRes(index[1])
+            case 4:
+                index = self.findIndexofAll(self.hexagonNumbers, 4)
+                self.giveHexagonRes(index[0])
+                self.giveHexagonRes(index[1])
+            case 5:
+                index = self.findIndexofAll(self.hexagonNumbers, 5)
+                self.giveHexagonRes(index[0])
+                self.giveHexagonRes(index[1])
+            case 6:
+                index = self.findIndexofAll(self.hexagonNumbers, 6)
+                self.giveHexagonRes(index[0])
+                self.giveHexagonRes(index[1])
             case 7:
                 self.moveRobber()
+            case 8:
+                index = self.findIndexofAll(self.hexagonNumbers, 8)
+                self.giveHexagonRes(index[0])
+                self.giveHexagonRes(index[1])
+            case 9:
+                index = self.findIndexofAll(self.hexagonNumbers, 9)
+                self.giveHexagonRes(index[0])
+                self.giveHexagonRes(index[1])
+            case 10:
+                index = self.findIndexofAll(self.hexagonNumbers, 10)
+                self.giveHexagonRes(index[0])
+                self.giveHexagonRes(index[1])
+            case 11:
+                index = self.findIndexofAll(self.hexagonNumbers, 11)
+                self.giveHexagonRes(index[0])
+                self.giveHexagonRes(index[1])
+            case 12:
+                index = self.findIndexofAll(self.hexagonNumbers, 12)
+                self.giveHexagonRes(index[0])
         
-
-        #for i in range(0,5):
-        #    self.nodes[ self.hexagons[4].giveNodes(5) ]
-        
-        return combRoll
+    def giveHexagonRes(self, index):
+        resGive = self.hexagons[index].giveResType()
+        nodes = self.hexagons[index].giveNodes()
+        for node in nodes:
+            if self.settlements.__contains__(node):
+                for player in self.players:
+                    if player.playerSettlements.__contains__(node):
+                        match resGive:
+                            case ResCard.Ore:
+                                player.resCards.append(self.woodDeck.pop())
+                            case ResCard.Brick:
+                                player.resCards.append(self.brickDeck.pop())
+                            case ResCard.Wheat:
+                                player.resCards.append(self.wheatDeck.pop())
+                            case ResCard.Sheep:
+                                player.resCards.append(self.sheepDeck.pop())
+                            case ResCard.Wood:
+                                player.resCards.append(self.woodDeck.pop())
     
     def findIndexofAll(self, arr, num):
         list = []
@@ -268,7 +316,6 @@ class GameRunner:
             if num == arr[i]:
                 list.append(i)
         return list
-
 
     def cardsNeededForRoad(self, node1, node2, builderPlayer):
         cardsNeeded = [
