@@ -28,6 +28,7 @@ class Player:
         self.playerNum = num
         self.victory_points = 0
         self.longest_road_length = 0
+        self.playerArmy = 0
         self.resCards = []
         self.developCards = []
         self.playerRoads = []
@@ -121,6 +122,7 @@ class Player:
         :devCard - The development card to be checked for its presence in the developCards list
         """
         return self.developCards.__contains__(devCard)
+        
         
     def updateLongestRoad(self):
         currentLongestRoad = 0

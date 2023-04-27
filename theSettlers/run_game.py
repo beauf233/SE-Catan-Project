@@ -31,6 +31,8 @@ class GameRunner:
         self.nodes = []
         self.roads = []
         self.settlements = []
+        self.biggestArmy = 0
+        self.playerWithBiggestArmy = None
         hexRelationships =[[0, 3, 4, 7, 8, 12], [1, 4, 5, 8, 9, 13], [2, 5, 6, 9, 10, 14], [7, 11, 12, 16, 17, 22], [8, 12, 13, 17, 18, 23], [9, 13, 14, 18, 19, 24], [10, 14, 15, 19, 20, 25], [16, 21, 22, 27, 28, 33], [17, 22, 23, 28, 29, 34], [18, 23, 24, 29, 30, 35], [19, 24, 25, 30, 31, 36], [20, 25, 26, 31, 32, 37], [28, 33, 34, 38, 39, 43], [29, 34, 35, 39, 40, 44], [30, 35, 36, 40, 41, 45], [31, 36, 37, 41, 42, 46], [39, 43, 44, 47, 48, 51], [40, 44, 45, 48, 49, 52], [41, 45, 46, 49, 50, 53]]
         for i in range(numPlayers):
             self.players.append(Player(game=self, num=i)) 
@@ -230,6 +232,17 @@ class GameRunner:
         
         return combRoll
 
+    def cardsNeededForRoad(self, node1, node2, builderPlayer):
+        cardsNeeded = [
+            ResCard.Wood,
+            ResCard.Brick
+        ]
+
+        if not (self.players[builderPlayer].hasResCards(cardsNeeded)):
+            print("You do not have the needed resources cards to make this")
+        else:
+            self.canBuildRoad(node1, node2, builderPlayer)
+
     def canBuildRoad(self, node1, node2, builderPlayer):
         """
         This method is used to check that a road can be built by a particular player at two given nodes. There
@@ -242,14 +255,8 @@ class GameRunner:
         :node2 - The second node in the road that is beind tested
         :builderPlayer - The identifier for the player attempting to build the road
         """
-        cardsNeeded = [
-            ResCard.Wood,
-            ResCard.Brick
-        ]
-
-        if not self.players[builderPlayer].hasResCards(cardsNeeded):
-            print("You do not have the needed resources cards to make this")
-        elif node1 == node2:
+        
+        if node1 == node2:
             print("You have to choose different nodes to build a road")
         elif self.roads.__contains__([node1,node2]):
             print("There is already a road here")
@@ -294,3 +301,42 @@ class GameRunner:
     def moveRobber(self):
         #print("hi")
         return None #Was messing up rollDice test so needed a placemarker.
+    
+    def useDevCards(self, chosenPlayer, chosenDevCard):
+        if self.players[chosenPlayer].hasDevCards(chosenDevCard):
+            match chosenDevCard:
+                case DevCard.VictoryPoint:
+                    self.players[chosenPlayer].victory_points += 1
+                case DevCard.Knight:
+                    self.moveRobber()
+                    self.players[chosenPlayer].playerArmy += 1
+                    self.updateLargestArmy()
+                case DevCard.RoadBuilding:
+                    node1 = int(input("Input first node"))
+                    node2 = int(input("Input second node"))
+                    self.canBuildRoad(node1, node2, chosenPlayer)
+                    node1 = int(input("Input first node"))
+                    node2 = int(input("Input second node"))
+                    self.canBuildRoad(node1, node2, chosenPlayer)
+                case :
+
+                case 4:
+        
+            self.players[chosenPlayer].removeDevCard(chosenDevCard)
+
+    def updateLargestArmy(self):
+        for player in self.players:
+            if player.playerArmy < 3:
+                None
+            elif player.playerArmy > self.biggestArmy:
+                self.biggestArmy = player.playerArmy
+                if self.playerWithBiggestArmy == None:
+                    None
+                else:
+                    self.playerWithBiggestArmy.victory_points -= 2
+                self.playerWithBiggestArmy = player
+
+        self.playerWithBiggestArmy += 2
+
+            
+
