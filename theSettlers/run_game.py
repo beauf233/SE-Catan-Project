@@ -57,6 +57,11 @@ class GameRunner:
         return self.players[chosePlayer]
 
     def resDeck(self):
+        self.woodDeck = []
+        self.brickDeck = []
+        self.oreDeck = []
+        self.sheepDeck = []
+        self.wheatDeck = []
         for i in range(0, 18):
             self.woodDeck.append(ResCard.Wood)
             self.brickDeck.append(ResCard.Brick)
@@ -332,7 +337,7 @@ class GameRunner:
                     node2 = int(input("Input second node"))
                     self.canBuildRoad(node1, node2, chosenPlayer)
                 case DevCard.YearOfPlenty:
-                    self.player[chosenPlayer]
+                    self.player[chosenPlayer].
                 case DevCard.Monopoly:
                     None
         
