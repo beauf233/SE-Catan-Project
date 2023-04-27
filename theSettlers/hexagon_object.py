@@ -27,4 +27,5 @@ class HexagonObject:
         are related to a given hexagon.
         """
         return self.nodeRelationship
+    
                     

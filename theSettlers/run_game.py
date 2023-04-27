@@ -3,7 +3,8 @@ from card_types import DevCard, ResCard
 from hex_values import hexType
 from hexagon_object import HexagonObject
 from node_object import NodeObject
-import random 
+import random
+
 
 class GameRunner:
     """
@@ -32,6 +33,7 @@ class GameRunner:
         self.roads = []
         self.settlements = []
 
+        # Innit the lists which hold the resource cards
         self.woodDeck = []
         self.brickDeck = []
         self.oreDeck = []
@@ -47,10 +49,13 @@ class GameRunner:
         for i in range(0,53):
             self.nodes.append(NodeObject(i))
 
-        #print('Test GameRunner intiated')
         self.resDeck()
         self.developDeck = self.shuffleDevelopCards()
         self.innitHexagons(hexRelationships)
+
+        # Sets up the numbers shown on the hexagons
+        self.hexagonNumbers = [2,3,3,4,4,5,5,6,6,8,8,9,9,10,10,11,11,12]
+        random.shuffle(self.hexagonNumbers)
 
     def getPlayer(self, chosePlayer):
         """
@@ -139,7 +144,10 @@ class GameRunner:
         to a specific player
         """
 
-        self.players[chosenPlayer].addDevCard(self.developDeck.pop())
+        if len(self.developDeck) == 0:
+            print("There are no cards left in the development card deck")
+        else:
+            self.players[chosenPlayer].addDevCard(self.developDeck.pop())
 
     #Method used to make a development card
     #Method needs to change the develop card
@@ -227,9 +235,7 @@ class GameRunner:
                     forest -= 1
                     if forest == 0:
                         del myNumbers[myNumbers.index(5)]
-    
-    #Generates 2 seperate integer values to simulate a random dice roll
-    #Results are summed and the value returned
+
     def rollDice(self):
         """
         This method is the backend for a dice roll. It choses two random integer values between 1 and 6
@@ -239,14 +245,30 @@ class GameRunner:
         roll1 = random.randint(1,6)
         roll2 = random.randint(1,6)
         combRoll = roll1+roll2
-        #print(combRoll)
-        if combRoll == 7:
-            self.moveRobber()
+        print(combRoll)
+        match combRoll:
+            case 2:
+                index = self.findIndexofAll(self.hexagonNumbers, 2)
+                self.hexagons[index].hexagonType
+                # Give materials
+            case 3:
+                None
+            case 7:
+                self.moveRobber()
+        
 
         #for i in range(0,5):
         #    self.nodes[ self.hexagons[4].giveNodes(5) ]
         
         return combRoll
+    
+    def findIndexofAll(self, arr, num):
+        list = []
+        for i in range(0, len(arr)):
+            if num == arr[i]:
+                list.append(i)
+        return list
+
 
     def cardsNeededForRoad(self, node1, node2, builderPlayer):
         cardsNeeded = [
@@ -274,10 +296,10 @@ class GameRunner:
         
         if node1 == node2:
             print("You have to choose different nodes to build a road")
-        elif self.roads.__contains__([node1,node2]):
+        elif self.roads.__contains__([node1,node2]) or self.roads.__contains__([node2,node1]):
             print("There is already a road here")
-        elif not (self.players[builderPlayer].playerRoads.__contains__(node1) or self.players[builderPlayer].playerRoads.__contains__(node2)):
-            print("You need to have a connecting road to build a road here")
+        elif not (self.players[builderPlayer].playerRoads.__contains__(node1) or self.players[builderPlayer].playerRoads.__contains__(node2) or self.players[builderPlayer].playerSettlements.__contains__(node1) or self.players[builderPlayer].playerSettlements.__contains__(node2)):
+            print("You need to have a connecting road or settlement to build a road here")
         else:
             print("Road is being built")
             self.buildRoad(node1, node2, builderPlayer)
@@ -320,18 +342,14 @@ class GameRunner:
     
     def useDevCards(self, chosenPlayer, chosenDevCard):
         if self.players[chosenPlayer].hasDevCards(chosenDevCard):
-            print('test1')
             match chosenDevCard:
                 case DevCard.VictoryPoint:
-                    print('test2')
                     self.players[chosenPlayer].victory_points += 1
                 case DevCard.Knight:
-                    print('test3')
                     self.moveRobber()
                     self.players[chosenPlayer].playerArmy += 1
                     self.updateLargestArmy()
                 case DevCard.RoadBuilding:
-                    print('test4')
                     node1 = int(input("Input first node"))
                     node2 = int(input("Input second node"))
                     self.canBuildRoad(self.nodes[node1-1], self.nodes[node2-1], chosenPlayer)
@@ -343,15 +361,15 @@ class GameRunner:
                         randomRes = random.randint(0,4)
                         match randomRes:
                             case 0:
-                                self.player[chosenPlayer].addResCards(self.woodDeck.pop())
+                                self.players[chosenPlayer].addResCards(self.woodDeck.pop())
                             case 1:
-                                self.player[chosenPlayer].addResCards(self.brickDeck.pop())
+                                self.players[chosenPlayer].addResCards(self.brickDeck.pop())
                             case 2:
-                                self.player[chosenPlayer].addResCards(self.oreDeck.pop())
+                                self.players[chosenPlayer].addResCards(self.oreDeck.pop())
                             case 3:
-                                self.player[chosenPlayer].addResCards(self.sheepDeck.pop())
+                                self.players[chosenPlayer].addResCards(self.sheepDeck.pop())
                             case 4:
-                                self.player[chosenPlayer].addResCards(self.wheatDeck.pop())
+                                self.players[chosenPlayer].addResCards(self.wheatDeck.pop())
                 case DevCard.Monopoly:
                     chosenResCard = str(input("What development card do you want to choose?"))
                     match chosenResCard:
@@ -369,7 +387,7 @@ class GameRunner:
                     for player in self.players:
                         if not(player == chosenPlayer):
                             for i in range(0, len(player.resCards)):
-                                if chosenDevCard == player.resCards[i]:
+                                if chosenResCard == player.resCards[i]:
                                     self.players[chosenPlayer].addResCards(self.player.resCards[i].pop())
         
             self.players[chosenPlayer].removeDevCard(chosenDevCard)
