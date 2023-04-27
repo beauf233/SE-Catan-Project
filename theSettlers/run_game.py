@@ -361,15 +361,15 @@ class GameRunner:
                         randomRes = random.randint(0,4)
                         match randomRes:
                             case 0:
-                                self.players[chosenPlayer].addResCards(self.woodDeck.pop())
+                                self.players[chosenPlayer].resCards.append(self.woodDeck.pop())
                             case 1:
-                                self.players[chosenPlayer].addResCards(self.brickDeck.pop())
+                                self.players[chosenPlayer].resCards.append(self.brickDeck.pop())
                             case 2:
-                                self.players[chosenPlayer].addResCards(self.oreDeck.pop())
+                                self.players[chosenPlayer].resCards.append(self.oreDeck.pop())
                             case 3:
-                                self.players[chosenPlayer].addResCards(self.sheepDeck.pop())
+                                self.players[chosenPlayer].resCards.append(self.sheepDeck.pop())
                             case 4:
-                                self.players[chosenPlayer].addResCards(self.wheatDeck.pop())
+                                self.players[chosenPlayer].resCards.append(self.wheatDeck.pop())
                 case DevCard.Monopoly:
                     chosenResCard = str(input("What development card do you want to choose?"))
                     match chosenResCard:
@@ -388,7 +388,7 @@ class GameRunner:
                         if not(player == chosenPlayer):
                             for i in range(0, len(player.resCards)):
                                 if chosenResCard == player.resCards[i]:
-                                    self.players[chosenPlayer].resCards.append(self.player.resCards[i].pop())
+                                    self.players[chosenPlayer].resCards.append(player.resCards[i].pop())
         
             self.players[chosenPlayer].removeDevCard(chosenDevCard)
 
