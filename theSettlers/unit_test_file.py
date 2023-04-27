@@ -29,7 +29,7 @@ class testPlayerClass(unittest.TestCase):
         currentGame = GameRunner(1)
         testResCard = ResCard(1)
         testResCard2 = ResCard(1)
-        player = Player(self.currentGame, 1)
+        player = Player(currentGame, 1)
         listOfCards = [testResCard]
         player.addResCards(listOfCards)
         #print("test:" +str(player.hasRescards(listOfCards)))
@@ -54,6 +54,7 @@ class testPlayerClass(unittest.TestCase):
     def testAddHasRemoveDevCard(self):
         """
         Tests the functionality of the player object devCard related methods
+        
         Tests the methods:
         :addDevCard
         :hasDevCards
@@ -144,32 +145,55 @@ class testRunGame(unittest.TestCase):
             self.assertTrue(rollNumber in range(2,13))
             i += 1
 
-class testBuildRoad(unittest.TestCase):
+class testcanBuildRoad(unittest.TestCase):
     """
     This test class is an extenstion of the testGameRunner class above, a seperate test
-    class was used as the importance of the GameRunner.buildRoad method was deemed important
+    class was used as the importance of the GameRunner.canBuildRoad method was deemed important
     and complex enough to warrant it's own class of tests
+    
     Test methods used are:
     :testSameNodePassed - tests the error that user passed same two nodes
     :testRoadAlreadyExist - tests to see if specific road already exists
     :testRoadNeedsConnectingRoad - tests to see if there is a connection point for new road
-    :testBuildRoad - tests to see if road can be built given correct conditions
+    :testcanBuildRoad - tests to see if road can be built given correct conditions
 
     Note: the code currently uses print statements in the GameRunner class, so no assertEquals statments yet
     """
 
+    def setUp(self):
+        self.testGameRunner = GameRunner(1)
+        self.testNode1 = NodeObject(1)
+        self.testNode2 = NodeObject(2)
+        self.testNode3 = NodeObject(3)
+        self.cardsNeeded = [
+            ResCard.Wood,
+            ResCard.Brick
+        ]
+        self.testGameRunner.players[0].addResCards(self.cardsNeeded)
+
+    def tearDown(self):
+        self.testGameRunner = None
+        self.testNode1 = None
+        self.testNode2 = None
+        self.testNode3 = None
+
+    def testHasResCard(self):
+        print("\nOutput should be: 'You do not have the needed resources cards to make this'")
+        self.testGameRunner.players[0].removeResCards(self.cardsNeeded)
+        self.testGameRunner.canBuildRoad(self.testNode1, self.testNode1, 0)
+
     def testSameNodePassed(self):
         """
-        Tests to see if the two nodes that are passed to the buildRoad method are in fact that same
+        Tests to see if the two nodes that are passed to the canBuildRoad method are in fact that same
         node, this will be useful if the user clicks the same node by accident
         
         Methods that are tested:
-        :buildRoad
+        :canBuildRoad
         """
 
-        testNode1 = NodeObject(1)
-        testGameRunner = GameRunner(1)
-        testGameRunner.buildRoad(testNode1, testNode1, 0)
+        print("\nOutput should be: 'You have to choose different nodes to build a road'")
+        self.testGameRunner.players[0].addResCards(self.cardsNeeded)
+        self.testGameRunner.canBuildRoad(self.testNode1, self.testNode1, 0)
         
     def testRoadAlreadyExist(self):
         """
@@ -178,14 +202,12 @@ class testBuildRoad(unittest.TestCase):
         by placing a new road on a pre-existing road
 
         Methods that are tested:
-        :buildRoad
+        :canBuildRoad
         """
 
-        testNode1 = NodeObject(1)
-        testNode2 = NodeObject(2)
-        testGameRunner = GameRunner(1)
-        testGameRunner.roads.append([testNode1, testNode2])
-        testGameRunner.buildRoad(testNode1, testNode2, 0)
+        print("\nOutput should be: 'There is already a road here'")
+        self.testGameRunner.roads.append([self.testNode1, self.testNode2])
+        self.testGameRunner.canBuildRoad(self.testNode1, self.testNode2, 0)
 
     def testRoadNeedsConnectingRoad(self):
         """
@@ -194,31 +216,91 @@ class testBuildRoad(unittest.TestCase):
         other players building decisions. 
 
         Methods that are tested:
-        :buildRoad
+        :canBuildRoad
         """
 
-        testNode1 = NodeObject(1)
-        testNode2 = NodeObject(2)
-        testGameRunner = GameRunner(1)
-        testGameRunner.buildRoad(testNode1, testNode2, 0)
+        print("\nOutput should be: 'You need to have a connecting road to build a road here'")
+        self.testGameRunner.canBuildRoad(self.testNode1, self.testNode2, 0)
 
-    def testBuildRoad(self):
+    def testcanBuildRoad(self):
         """
         Tests the overall functionality, within this scenario the set-up is such that the game should
         be able to build a road as there is a pre-existing road already added in which to connect to and 
         the nodes passed to the function are in themselves unique
         
         Methods that are tested:
-        :buildRoad
+        :canBuildRoad
         """
 
-        testNode1 = NodeObject(1)
-        testNode2 = NodeObject(2)
-        testNode3 = NodeObject(3)
-        testGameRunner = GameRunner(1)
-        testGameRunner.players[0].playerRoads.append(testNode2)
-        testGameRunner.players[0].playerRoads.append(testNode3)
-        testGameRunner.roads.append([testNode2, testNode3])
-        testGameRunner.buildRoad(testNode1, testNode2, 0)
+        print("\nOutput should be: 'Road is being built'")
+        self.testGameRunner.players[0].playerRoads.append(self.testNode2)
+        self.testGameRunner.players[0].playerRoads.append(self.testNode3)
+        self.testGameRunner.roads.append([self.testNode2, self.testNode3])
+        self.testGameRunner.canBuildRoad(self.testNode1, self.testNode2, 0)
 
+class testCanBuildSettlement(unittest.TestCase):
+    """
+    This test class is another extension of the testGamerRunner class, it is seperated as there is a 4 
+    conditional branch where the player receives feedback on whether they are able to build a settlement 
+    in a desired place. As with the build road method, the canBuildSettlement method also uses print 
+    statements for displayers errors, so manual checking of print statements will be necessary
+    
+    Test methods used are:
+    :testNeedResourcesForSettlement - Tests if player has required resCards
+    :testAlreadySettlment - Tests if a settlement already exists on selected node
+    :testCanBuildSettlementTrueCase - Tests, given correct conditions, that a settlement is built
+    """
+
+    def setUp(self):
+        self.testGameRunner = GameRunner(1)
+        self.cardsNeeded = [
+            ResCard.Wood,
+            ResCard.Brick,
+            ResCard.Sheep,
+            ResCard.Wheat
+        ]
+
+    def testNeedResourcesForSettlement(self):
+        """
+        This method tests whether the player has enough resources required to build a settlement, and if they
+        do not then that the appropriate error message is displayed.
+
+        Methods tested:
+        :canBuildSettlement
+        """
+        print("\nOutput should be: 'You do not have the needed resources cards to make this'")
+        self.testGameRunner.canBuildSettlement(self.testGameRunner.nodes[0], 0)
+
+    def testAlreadySettlment(self):
+        """
+        This method tests whether the GameRunner class will be able to filter out when a player tries to build
+        a settlement on a node that already contains a settlement. This will be paramount to ensuring as few 
+        bugs as possible. 
+
+        Methods tested:
+        :canBuildSettlement
+        """
+
+        self.testGameRunner.buildSettlement(self.testGameRunner.nodes[0], 0)
+        self.testGameRunner.players[0].addResCards(self.cardsNeeded)
+        print("\nOutput should be: 'There is already a settlement built here'")
+        self.testGameRunner.canBuildSettlement(self.testGameRunner.nodes[0], 0)
+
+    def testCanBuildSettlementTrueCase(self):
+        """
+        Tests the true case when the player should be able to build a settlement, this requires the player
+        to have chosen a node that is atleast two nodes path from the nearest settlement, and also to have
+        the correct resources needed. Additionally, a settlement cannot already be on this node.
+
+        Methods tested:
+        :canBuildSettlement
+        :buildSettlment
+        """
+
+        self.testGameRunner.players[0].addResCards(self.cardsNeeded)
+        print("\nOutput should be: 'Settlement is being built'")
+        self.testGameRunner.canBuildSettlement(self.testGameRunner.nodes[0], 0)
+        self.testGameRunner.players[0].addResCards(self.cardsNeeded)
+        print("\nOutput should be: 'There is already a settlement built here'")
+        self.testGameRunner.canBuildSettlement(self.testGameRunner.nodes[0], 0)
 unittest.main()

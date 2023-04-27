@@ -255,8 +255,14 @@ class GameRunner:
         :node2 - The second node in the road that is beind tested
         :builderPlayer - The identifier for the player attempting to build the road
         """
-        
-        if node1 == node2:
+        cardsNeeded = [
+            ResCard.Wood,
+            ResCard.Brick
+        ]
+
+        if not self.players[builderPlayer].hasResCards(cardsNeeded):
+            print("You do not have the needed resources cards to make this")
+        elif node1 == node2:
             print("You have to choose different nodes to build a road")
         elif self.roads.__contains__([node1,node2]):
             print("There is already a road here")
@@ -288,8 +294,8 @@ class GameRunner:
             print("You do not have the needed resources cards to make this")
         elif self.settlements.__contains__(node):
             print("There is already a settlement built here")
-        elif not(self.twoIntersectionsAway(node)):
-            print("A settlement can only be built two intersectios away from a settlement or city")
+        #elif not(self.twoIntersectionsAway(node)):
+        #    print("A settlement can only be built two intersectios away from a settlement or city")
         else:
             print("Settlement is being built")
             self.buildSettlement(node, builderPlayer)
