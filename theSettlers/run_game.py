@@ -388,7 +388,7 @@ class GameRunner:
                         if not(player == chosenPlayer):
                             for i in range(0, len(player.resCards)):
                                 if chosenResCard == player.resCards[i]:
-                                    self.players[chosenPlayer].addResCards(self.player.resCards[i].pop())
+                                    self.players[chosenPlayer].resCards.append(self.player.resCards[i].pop())
         
             self.players[chosenPlayer].removeDevCard(chosenDevCard)
 
