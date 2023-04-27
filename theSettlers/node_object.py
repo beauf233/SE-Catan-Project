@@ -15,15 +15,15 @@ class NodeObject:
         :number - The number that will be used to identify the node in nodeNumber
         """
         
-        #print('Node Object Intialisation Marker')
         self.nodeNumber = number
+    
     def give(n):
-        print
+        None
     
     def buildSettlement():
-        print
+        None
     
     def validSettlementLocation():
-        print
+        None
 
     

@@ -15,6 +15,7 @@ class Player:
     :developCards - List holding the development cards the player has from the Enum 'cardTypes'
     :longest_road_length - The length of the longest road segment a player has
     :playerRoads - The list of roads the player has
+    :playerArmy - This is an int of the players current army size
     """
 
     def __init__ (self, game, num):

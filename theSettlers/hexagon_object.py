@@ -32,6 +32,9 @@ class HexagonObject:
         return self.nodeRelationship
     
     def giveResType(self):
+        """
+        This is a method which will return the type of resource card the hexagon will return 
+        """
         match self.hexagonType:
             case hexType.Mountain:
                 return ResCard.Ore

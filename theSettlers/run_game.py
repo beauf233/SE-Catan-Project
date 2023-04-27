@@ -17,6 +17,10 @@ class GameRunner:
     :players - A list containing all the player objects
     :nodes - A list containing all the nodes which will be related to the hexagons
     :roads - A list that contains all the roads made in the game
+    :settlements - A list of all the settlements placed in the game
+    :resDeck - A list of each seperate res cards in their respected decks
+    :biggestArmy - An integer which tracks what the current biggest army is
+    :playerWithBiggestArmy - An object of player that holds which current player has the biggest army
     :hexRelationships - A list containing lists which themselves contain numbers relating to how the
     nodes will relate to the hexagons
     :developDeck - A list containing 25 shuffled development cards
@@ -69,6 +73,9 @@ class GameRunner:
         return self.players[chosePlayer]
 
     def resDeck(self):
+        """
+        Fills the lists of resources with their respected resources
+        """
         for i in range(0, 18):
             self.woodDeck.append(ResCard.Wood)
             self.brickDeck.append(ResCard.Brick)
@@ -356,7 +363,6 @@ class GameRunner:
         self.players[builderPlayer].playerRoads.append([node1,node2])
 
     def twoIntersectionsAway(self, node):      
-        # TO DO
         # indexof in array of hexagons and find pattern
         return True
 
